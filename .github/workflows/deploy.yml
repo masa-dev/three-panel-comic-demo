@@ -26,8 +26,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
-    - run: npm run deploy --if-present
-
+    - name: Package install
+      run: npm ci
+    - name: Build App
+      run: npm run build --if-present
+    - name: Run Test
+      run: npm test
+    - name: App Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
