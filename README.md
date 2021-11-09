@@ -1,5 +1,7 @@
 # three-panel-comic-demo
 
+3コマ漫画アプリのデモ用
+
 ## Project setup
 ```
 npm install
