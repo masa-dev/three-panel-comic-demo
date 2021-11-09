@@ -2,6 +2,10 @@
 
 3コマ漫画アプリのデモ用
 
+## デプロイ先のサイトURL
+
+[https://masa-dev.github.io/three-panel-comic-demo/](https://masa-dev.github.io/three-panel-comic-demo/)
+
 ## Project setup
 ```
 npm install
