@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8330cdcd04a580da59a2",
+    "revision": "aa175212c79103dade27",
     "url": "/three-panel-comic-demo/css/app.81098c0c.css"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/img/logo.82b9c7a5.png"
   },
   {
-    "revision": "122933f89809e5364a181d9378c20645",
+    "revision": "dbfe356c1cb5d240893cda0109b2313f",
     "url": "/three-panel-comic-demo/index.html"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/js/about.8733eaf7.js"
   },
   {
-    "revision": "8330cdcd04a580da59a2",
-    "url": "/three-panel-comic-demo/js/app.9e6ec5fe.js"
+    "revision": "aa175212c79103dade27",
+    "url": "/three-panel-comic-demo/js/app.1c685051.js"
   },
   {
     "revision": "daae1ae07a295e387c63",
