@@ -1,6 +1,7 @@
 <template>
   <div id="login">
     <div id="firebaseui-auth-container"></div>
+    <button @click="logout">Logout</button>
   </div>
 </template>
 
@@ -11,6 +12,16 @@ import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 
 export default {
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          alert("ログアウトしました");
+        });
+    },
+  },
   mounted() {
     firebase.initializeApp(firebaseConfig);
 

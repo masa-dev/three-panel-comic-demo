@@ -13,8 +13,8 @@ const routes = [
         path: "",
         name: "ComicHome",
         component: () => import("../views/comics/ComicList.vue"),
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/comics",
