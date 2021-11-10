@@ -1,0 +1,48 @@
+<template>
+  <div class="about">
+    <p>This is an about page</p>
+    <ul class="comic-link-list">
+      <li>
+        <router-link to="comics/1"
+          ><div class="comic-link">泣きっ面に蜂</div>
+        </router-link>
+      </li>
+      <li>
+        <router-link to="comics/1"
+          ><div class="comic-link">泣きっ面に蜂</div>
+        </router-link>
+      </li>
+    </ul>
+    <h2>login</h2>
+    <router-link to="login">login</router-link>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss" scoped>
+.comic-link-list {
+  padding: 0 !important;
+  margin-left: 0 !important;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  li {
+    width: 49%;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 10px;
+    &:nth-child(2n-1) {
+      margin-right: 2%;
+    }
+  }
+
+  .comic-link {
+    padding: 0.7rem 1rem;
+  }
+}
+</style>
