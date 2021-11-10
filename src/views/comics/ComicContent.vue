@@ -74,7 +74,6 @@ import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { Flicking } from "@egjs/vue-flicking";
 import { Arrow, Pagination } from "@egjs/flicking-plugins";
-import "@egjs/flicking-plugins/dist/arrow.css";
 import axios from "axios";
 
 export default {
@@ -202,6 +201,7 @@ export default {
 
 <style lang="scss" scoped>
 @import url("../../../node_modules/@egjs/vue-flicking/dist/flicking.css");
+@import url("../../../node_modules/@egjs/flicking-plugins/dist/arrow.css");
 
 h2 {
   font-size: 1.3rem;
