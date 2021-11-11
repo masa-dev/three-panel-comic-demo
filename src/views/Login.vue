@@ -41,6 +41,29 @@ export default {
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
       ],
+      callbacks: {
+        uiShown: () => {
+          const loginBtnElements = document.getElementsByClassName(
+            "firebaseui-idp-text-long"
+          );
+
+          for (let element of loginBtnElements) {
+            element.innerHTML = changeBtnToJa(element.innerHTML);
+          }
+
+          function changeBtnToJa(enText) {
+            if (enText.match(/(google|Google)/)) {
+              return "Googleでログイン";
+            } else if (enText.match(/(email|Email)/)) {
+              return "Eメールでログイン";
+            } else if (enText.match(/(guest|Guest)/)) {
+              return "ゲストとして続ける";
+            } else {
+              return enText;
+            }
+          }
+        },
+      },
     });
   },
 };
