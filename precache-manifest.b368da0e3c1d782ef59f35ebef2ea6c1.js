@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "81d265014ad750f757a3",
+    "revision": "7e1b7c0f743b9f5f8512",
     "url": "/three-panel-comic-demo/css/app.3ab38a80.css"
   },
   {
-    "revision": "620f93efd2abe06f86bb",
-    "url": "/three-panel-comic-demo/css/chunk-57a1b701.3a1f0193.css"
+    "revision": "4e724d163a287593033f",
+    "url": "/three-panel-comic-demo/css/chunk-57571809.3a1f0193.css"
   },
   {
-    "revision": "e4c7c312c0e5f10fca21",
-    "url": "/three-panel-comic-demo/css/chunk-cdfbe24a.6f583742.css"
+    "revision": "b99705e78a10db45321f",
+    "url": "/three-panel-comic-demo/css/chunk-7c47c2b1.6f583742.css"
   },
   {
     "revision": "8622ec5d8272c8ff400e",
     "url": "/three-panel-comic-demo/css/chunk-e6c53c3e.add20aab.css"
   },
   {
-    "revision": "646ebe8897b1516caaaead994b53462d",
+    "revision": "f78ad1bc8a7a5b522d67cfc41109f32a",
     "url": "/three-panel-comic-demo/index.html"
   },
   {
-    "revision": "81d265014ad750f757a3",
-    "url": "/three-panel-comic-demo/js/app.590816be.js"
+    "revision": "7e1b7c0f743b9f5f8512",
+    "url": "/three-panel-comic-demo/js/app.6b48cd2e.js"
   },
   {
     "revision": "31dbe58f679865496b19",
@@ -32,16 +32,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/js/chunk-2d0af7b0.c49e061e.js"
   },
   {
-    "revision": "216f41aaa4c088228b05",
-    "url": "/three-panel-comic-demo/js/chunk-43ed1f1d.b46e491b.js"
+    "revision": "f6366455679c9cf702ba",
+    "url": "/three-panel-comic-demo/js/chunk-3a2a1a7b.73539237.js"
   },
   {
-    "revision": "620f93efd2abe06f86bb",
-    "url": "/three-panel-comic-demo/js/chunk-57a1b701.777963b7.js"
+    "revision": "4e724d163a287593033f",
+    "url": "/three-panel-comic-demo/js/chunk-57571809.e04d0f3e.js"
   },
   {
-    "revision": "e4c7c312c0e5f10fca21",
-    "url": "/three-panel-comic-demo/js/chunk-cdfbe24a.0f39c4bb.js"
+    "revision": "b99705e78a10db45321f",
+    "url": "/three-panel-comic-demo/js/chunk-7c47c2b1.3bd4ef7d.js"
   },
   {
     "revision": "8622ec5d8272c8ff400e",
