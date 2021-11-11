@@ -26,7 +26,9 @@ export default {
   mounted() {
     firebase.initializeApp(firebaseConfig);
 
-    let ui = new firebaseui.auth.AuthUI(firebase.auth());
+    let ui =
+      firebaseui.auth.AuthUI.getInstance() ||
+      new firebaseui.auth.AuthUI(firebase.auth());
 
     ui.start("#firebaseui-auth-container", {
       signInSuccessUrl: "./",
