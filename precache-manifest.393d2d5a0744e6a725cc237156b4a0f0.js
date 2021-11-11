@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7e1b7c0f743b9f5f8512",
+    "revision": "ff5bf36228080b75c908",
     "url": "/three-panel-comic-demo/css/app.3ab38a80.css"
   },
   {
-    "revision": "4e724d163a287593033f",
+    "revision": "f193092587ea9c2b1c58",
     "url": "/three-panel-comic-demo/css/chunk-57571809.3a1f0193.css"
   },
   {
@@ -16,12 +16,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/css/chunk-e6c53c3e.add20aab.css"
   },
   {
-    "revision": "f78ad1bc8a7a5b522d67cfc41109f32a",
+    "revision": "23db27593e782f5f7dc9a4c91d84b3ee",
     "url": "/three-panel-comic-demo/index.html"
   },
   {
-    "revision": "7e1b7c0f743b9f5f8512",
-    "url": "/three-panel-comic-demo/js/app.6b48cd2e.js"
+    "revision": "ff5bf36228080b75c908",
+    "url": "/three-panel-comic-demo/js/app.9e385052.js"
   },
   {
     "revision": "31dbe58f679865496b19",
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/js/chunk-3a2a1a7b.73539237.js"
   },
   {
-    "revision": "4e724d163a287593033f",
-    "url": "/three-panel-comic-demo/js/chunk-57571809.e04d0f3e.js"
+    "revision": "f193092587ea9c2b1c58",
+    "url": "/three-panel-comic-demo/js/chunk-57571809.26e8e796.js"
   },
   {
     "revision": "b99705e78a10db45321f",
