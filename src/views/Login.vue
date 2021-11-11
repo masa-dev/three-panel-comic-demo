@@ -1,7 +1,8 @@
 <template>
   <div id="login">
     <div id="firebaseui-auth-container"></div>
-    <button @click="logout">Logout</button>
+    <button @click="logout">Logout</button><br />
+    <router-link to="/">TOP</router-link>
   </div>
 </template>
 
