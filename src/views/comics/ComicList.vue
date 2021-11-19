@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <p>This is an about page</p>
+  <div class="comic-list">
+    <h2>漫画一覧</h2>
     <ul class="comic-link-list">
       <li>
         <router-link to="comics/1"

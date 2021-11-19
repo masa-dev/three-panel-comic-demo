@@ -233,8 +233,8 @@ h2 {
 
 .panel,
 .comic-page {
-  height: 220px;
-  width: 308px;
+  height: 200px;
+  width: 280px;
   margin: 10px;
   text-align: center;
   background-color: bisque;
