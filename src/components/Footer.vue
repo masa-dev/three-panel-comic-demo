@@ -54,6 +54,8 @@
 </template>
 
 <style lang="scss">
+@import "../styles/variables";
+
 footer {
   padding: 5px;
   background-color: rgb(241, 186, 114);
@@ -94,6 +96,27 @@ footer {
 
   > p {
     margin: 5px 0;
+  }
+}
+@media only screen and (max-width: $responsiveMainWidth) {
+  footer {
+    .footer-container {
+      padding: 10px 5px;
+      width: 95%;
+    }
+
+    .footer-col {
+      padding: 0 10px;
+
+      h4 {
+        margin: 10px 0;
+        font-size: 1rem;
+      }
+
+      ul li {
+        font-size: 1rem;
+      }
+    }
   }
 }
 </style>

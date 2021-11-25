@@ -77,7 +77,7 @@ header {
     text-align: center;
     padding: 5px 20px;
     margin: 0 auto;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     justify-content: space-between;
 
     .title-bar > a {
@@ -86,8 +86,8 @@ header {
       h1 {
         font-size: 1.6em;
         margin: {
-          top: 10px;
-          bottom: 10px;
+          top: 7px;
+          bottom: 8px;
         }
       }
     }

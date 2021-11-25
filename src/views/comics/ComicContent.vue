@@ -173,7 +173,8 @@ export default {
     const deleteClassName = "flicking-arrow-disabled";
     const arrowElement = document.getElementsByClassName(deleteClassName);
     for (let i = 0; i < 2; i++) {
-      arrowElement[0].classList.remove(deleteClassName);
+      if (arrowElement[0].classList.contains(deleteClassName))
+        arrowElement[0].classList.remove(deleteClassName);
     }
     // スタイルの調整
     document.getElementsByClassName("flicking-camera")[0].style.height =
@@ -200,6 +201,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/variables";
 @import url("../../../node_modules/@egjs/vue-flicking/dist/flicking.css");
 @import url("../../../node_modules/@egjs/flicking-plugins/dist/arrow.css");
 
@@ -229,10 +231,30 @@ h2 {
   .flicking-camera {
     height: unset;
   }
+
+  .flicking-pagination-bullet {
+    padding: 2px;
+  }
+
+  .flicking-arrow-next {
+    animation-name: arrow-next;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .flicking-arrow-prev {
+    animation-name: arrow-prev;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
 }
 
 .panel,
 .comic-page {
+  display: inline-block;
+  vertical-align: top;
   height: 200px;
   width: 280px;
   margin: 10px;
@@ -240,47 +262,21 @@ h2 {
   background-color: bisque;
   border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(70, 39, 0, 0.301);
-}
 
-.comic-page img {
-  pointer-events: none;
-}
+  > img {
+    pointer-events: none;
+    height: 90%;
+    width: auto;
+    margin: 0 auto;
+  }
 
-.comic-page > img {
-  height: 90%;
-  width: auto;
-  margin: 0 auto;
+  > p {
+    margin: 0;
+  }
 }
 
 .page-wrapper {
   text-align: center;
-}
-
-.page-wrapper > .comic-page {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.comic-page > p {
-  margin: 0;
-}
-
-.flicking-pagination-bullet {
-  padding: 2px;
-}
-
-.flicking-arrow-next {
-  animation-name: arrow-next;
-  animation-duration: 3s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-.flicking-arrow-prev {
-  animation-name: arrow-prev;
-  animation-duration: 3s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
 }
 
 /* アニメーションの軌道の調整部分 */
@@ -317,23 +313,38 @@ h2 {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: $responsiveMainWidth) {
   .panel,
   .comic-page {
     height: 200px;
-    width: 300px;
+    width: 280px;
     margin: 10px;
     text-align: center;
     background-color: bisque;
     border-radius: 20px;
+
+    .flicking-arrow-prev,
+    .flicking-arrow-next {
+      transform: scale(0.7, 0.7);
+      top: 35%;
+    }
+
+    .flicking-pagination-bullet {
+      padding: 1px;
+    }
   }
-  .flicking-arrow-prev,
-  .flicking-arrow-next {
-    transform: scale(0.7, 0.7);
-    top: 35%;
-  }
-  .flicking-pagination-bullet {
-    padding: 1px;
+
+  .flex-container {
+    display: unset;
+    flex-wrap: unset;
+
+    .flex-left-item {
+      width: 100%;
+    }
+
+    .flex-right-item {
+      width: 100%;
+    }
   }
 }
 </style>
