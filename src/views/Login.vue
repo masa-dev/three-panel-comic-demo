@@ -26,6 +26,12 @@ export default {
   mounted() {
     firebase.initializeApp(firebaseConfig);
 
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user && user.providerData.length !== 0) {
+        this.$router.push({ path: "/" });
+      }
+    });
+
     let ui =
       firebaseui.auth.AuthUI.getInstance() ||
       new firebaseui.auth.AuthUI(firebase.auth());
