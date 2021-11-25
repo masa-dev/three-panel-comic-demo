@@ -37,8 +37,13 @@ export default {
     return {
       isLogin: false,
       userName: "",
-      photoURL: require("@/assets/no_user.png"),
+      //photoURL: this.$store.state.user.photoURL,
     };
+  },
+  computed: {
+    photoURL() {
+      return this.$store.state.user.photoURL;
+    },
   },
   mounted() {
     firebase.initializeApp(firebaseConfig);
@@ -48,9 +53,6 @@ export default {
         if (user.providerData.length !== 0) {
           this.isLogin = true;
           this.userName = user.displayName;
-          this.photoURL = this.photoURL
-            ? user.photoURL
-            : require("@/assets/no_user.png");
           return;
         }
       }

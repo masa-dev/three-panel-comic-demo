@@ -77,6 +77,10 @@ export default {
       iconRef.put(this.iconImage).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((url) => {
           user.updateProfile({ photoURL: url });
+          this.$store.commit("updateUserProfile", {
+            userName: user.userName,
+            photoURL: url,
+          });
           alert("アップロードしました");
         });
       });
@@ -87,7 +91,6 @@ export default {
 
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
-      console.log(this.isLogin);
       if (user) {
         if (user.providerData.length !== 0) {
           this.email = user.email;
