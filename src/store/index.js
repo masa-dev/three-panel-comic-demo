@@ -29,7 +29,6 @@ export default new Vuex.Store({
      * @param {{userName: String, photoURL: String}} user ユーザー情報
      */
     updateUserProfile(state, user) {
-      console.log(user);
       if (user) {
         state.user.userName = user.userName;
         state.user.photoURL = user.photoURL;
