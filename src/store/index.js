@@ -28,15 +28,11 @@ export default new Vuex.Store({
      *
      * @param {{userName: String, photoURL: String}} user ユーザー情報
      */
-    updateUserProfile(state, user) {
-      console.log(user);
-      if (user) {
-        state.user.userName = user.userName;
-        state.user.photoURL = user.photoURL;
-      } else {
-        state.user.userName = null;
-        state.user.photoURL = null;
-      }
+    updatePhotoURL(state, url) {
+      state.user.photoURL = url ? url : null;
+    },
+    updateUserName(state, name) {
+      state.user.userName = name ? name : null;
     },
   },
   actions: {},

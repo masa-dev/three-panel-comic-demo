@@ -77,10 +77,7 @@ export default {
       iconRef.put(this.iconImage).then((snapshot) => {
         snapshot.ref.getDownloadURL().then((url) => {
           user.updateProfile({ photoURL: url });
-          this.$store.commit("updateUserProfile", {
-            userName: user.userName,
-            photoURL: url,
-          });
+          this.$store.commit("updatePhotoURL", url);
           alert("アップロードしました");
         });
       });
