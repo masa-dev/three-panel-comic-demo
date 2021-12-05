@@ -40,7 +40,7 @@ const routes = [
   {
     path: "/about",
     name: "About Site",
-    component: () => import("../views/AboutSite.vue")
+    component: () => import("../views/AboutSite.vue"),
   },
   {
     path: "/user",
