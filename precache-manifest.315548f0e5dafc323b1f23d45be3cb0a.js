@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b39c92fd78a6761de4d3",
-    "url": "/three-panel-comic-demo/css/app.80c08da9.css"
+    "revision": "9e2cf699a88024ac54a7",
+    "url": "/three-panel-comic-demo/css/app.06364640.css"
   },
   {
     "revision": "1b9d34aa422fba82f01d",
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/css/chunk-585ce6e7.ae2a6829.css"
   },
   {
-    "revision": "3e590709cf2c46c5751b",
-    "url": "/three-panel-comic-demo/css/chunk-648a9d77.f5449125.css"
+    "revision": "537a5e02a3f9d0481a9f",
+    "url": "/three-panel-comic-demo/css/chunk-715fbb49.86502a91.css"
   },
   {
     "revision": "c1cfbff4a8e013a5d172",
@@ -24,12 +24,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/img/no_user.0bbdbbd1.png"
   },
   {
-    "revision": "050e945d9ca05485e5fe9cfe0c8f1fd7",
+    "revision": "d4fa9373fd528b7af1b2d315398f5bb4",
     "url": "/three-panel-comic-demo/index.html"
   },
   {
-    "revision": "b39c92fd78a6761de4d3",
-    "url": "/three-panel-comic-demo/js/app.422fce5f.js"
+    "revision": "9e2cf699a88024ac54a7",
+    "url": "/three-panel-comic-demo/js/app.7f9ae1c6.js"
   },
   {
     "revision": "1b9d34aa422fba82f01d",
@@ -44,12 +44,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/js/chunk-2d0b2b58.6eb7f1ca.js"
   },
   {
+    "revision": "a90e0833d7504d67eece",
+    "url": "/three-panel-comic-demo/js/chunk-2d0bce45.181475dd.js"
+  },
+  {
+    "revision": "0a423b271a61fd3b88c6",
+    "url": "/three-panel-comic-demo/js/chunk-2d0ccbaa.a6b6ad0e.js"
+  },
+  {
     "revision": "45812539c967da899fef",
     "url": "/three-panel-comic-demo/js/chunk-585ce6e7.1af783a2.js"
   },
   {
-    "revision": "3e590709cf2c46c5751b",
-    "url": "/three-panel-comic-demo/js/chunk-648a9d77.8831403f.js"
+    "revision": "537a5e02a3f9d0481a9f",
+    "url": "/three-panel-comic-demo/js/chunk-715fbb49.48e0cb69.js"
   },
   {
     "revision": "c1cfbff4a8e013a5d172",
