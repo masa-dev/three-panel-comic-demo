@@ -42,6 +42,11 @@ const routes = [
     name: "User",
     component: () => import("../views/User.vue"),
   },
+  {
+    path: "/group",
+    name: "Group",
+    component: () => import("../views/Group.vue"),
+  },
 ];
 
 const router = new VueRouter({
