@@ -90,6 +90,7 @@ export default {
     firebase.initializeApp(firebaseConfig);
 
     firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
       if (user) {
         if (user.providerData.length !== 0) {
           this.email = user.email;
