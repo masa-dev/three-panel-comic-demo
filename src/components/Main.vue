@@ -38,6 +38,7 @@ main {
   }
 
   p {
+    font-size: 1.1em;
     line-height: 1.4em;
   }
 }
@@ -62,7 +63,7 @@ main {
     }
 
     p {
-      font-size: 0.9rem;
+      font-size: 1.05rem;
     }
   }
 }

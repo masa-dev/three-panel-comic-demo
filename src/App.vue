@@ -26,14 +26,12 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.$store.commit("setAuth", true);
-        this.$store.commit("updateUserProfile", {
-          userName: user.displayName,
-          photoURL: user.photoURL,
-        });
+        this.$store.commit("updatePhotoURL", user.photoURL);
+        this.$store.commit("updateUserName", user.displayName);
       } else {
         this.$store.commit("setAuth", false);
-        this.$store.commit("updateUserProfile");
-        console.log(this.$router);
+        this.$store.commit("updatePhotoURL");
+        this.$store.commit("updateUserName");
         if (this.$router.currentRoute.name !== "Login")
           this.$router.push({ path: "login" });
       }
