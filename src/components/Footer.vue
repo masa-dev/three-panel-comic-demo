@@ -98,7 +98,7 @@ footer {
     margin: 5px 0;
   }
 }
-@media only screen and (max-width: $responsiveMainWidth) {
+@media only screen and (max-width: 900px) {
   footer {
     .footer-container {
       padding: 10px 5px;
