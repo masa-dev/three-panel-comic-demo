@@ -3,7 +3,7 @@
     <div class="header-div">
       <div class="title-bar">
         <router-link to="/">
-          <h1>3コマ漫画アプリ</h1>
+          <h1>３コマ漫画アプリ</h1>
         </router-link>
       </div>
       <div class="user-bar">
