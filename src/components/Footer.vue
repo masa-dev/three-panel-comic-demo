@@ -23,14 +23,14 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>使用フォント</h4>
+        <h4>GitHub</h4>
         <ul>
           <li>
             <a
-              href="https://fonts.google.com/specimen/Kosugi+Maru"
+              href="https://github.com/masa-dev/three-panel-comic-demo"
               target="_blank"
               rel="noopener noreferrer"
-              >Kosugi Maru</a
+              >three-panel-comic-demo</a
             >
           </li>
         </ul>
