@@ -37,6 +37,7 @@
               <router-link to="/user">ユーザー設定</router-link>
               <router-link to="/group">グループ設定</router-link>
               <router-link to="/about">このサイトについて</router-link>
+              <a @click="reload">更新</a>
             </div>
           </div>
         </div>
@@ -86,6 +87,17 @@ export default {
 
       this.modalPosition.top = position.bottom + 5 + "px";
       this.modalPosition.right = window.innerWidth - position.right + "px";
+    },
+    reload() {
+      window.navigator.serviceWorker
+        .getRegistrations()
+        .then((registrations) => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+
+      window.location.reload(true);
     },
   },
   computed: {
@@ -217,6 +229,7 @@ header {
               text-decoration: none;
               border-top: solid rgb(182, 182, 182) 1px;
               transition: 0.2s;
+              cursor: pointer;
 
               &:first-child {
                 border: none;
