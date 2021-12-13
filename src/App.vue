@@ -13,6 +13,7 @@ import Footer from "./components/Footer.vue";
 
 import firebaseConfig from "@/util/firebaseConfig.js";
 import firebase from "firebase/compat/app";
+import "firebase/compat/database";
 
 firebase.initializeApp(firebaseConfig);
 
@@ -25,9 +26,19 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const database = firebase.database();
+        const userRef = database
+          .ref()
+          .child("users")
+          .child(user.uid)
+          .child("username");
+
+        userRef.on("value", (snapshot) => {
+          this.$store.commit("updateUserName", snapshot.val());
+        });
+
         this.$store.commit("setAuth", true);
         this.$store.commit("updatePhotoURL", user.photoURL);
-        this.$store.commit("updateUserName", user.displayName);
       } else {
         this.$store.commit("setAuth", false);
         this.$store.commit("updatePhotoURL");
