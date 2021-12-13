@@ -3,12 +3,17 @@
     <h2>ユーザー情報</h2>
 
     <div class="user-info-wrap">
-      <label for="user-name-input">ユーザー情報</label>
-      <input type="text" id="user-name-input" :value="userName" />
+      <label for="user-name-input">ユーザー名</label>
+      <input
+        type="text"
+        id="user-name-input"
+        :value="userName"
+        maxlength="10"
+      />
     </div>
     <div class="user-info-wrap">
       <label for="user-mail-input">メールアドレス(変更不可)</label>
-      <input type="text" id="user-mail-input" :value="email" readonly />
+      <input type="email" id="user-mail-input" :value="email" readonly />
     </div>
     <div class="user-info-wrap">
       <button @click="updateProfile">変更を更新する</button>
@@ -63,10 +68,13 @@ export default {
   methods: {
     updateProfile() {
       let userName = document.getElementById("user-name-input").value;
+      if (userName.length > 10) {
+        alert("名前の最大文字数は10です。");
+        return;
+      }
 
       let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          console.log(user);
           const database = firebase.database();
           const userRef = database
             .ref()
@@ -221,7 +229,8 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
       bottom: 1em;
     }
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="email"] {
       display: block;
       width: 400px;
       font-size: 0.85em;
@@ -245,6 +254,15 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
         box-shadow: 0 0 0 2px $inputShadowColor;
       }
     }
+
+    input[readonly] {
+      &:hover,
+      &:focus {
+        outline: none;
+        border-color: gray;
+        box-shadow: 0 0 0 2px rgba(128, 128, 128, 0.3);
+      }
+    }
   }
 }
 @media only screen and (max-width: $responsiveMainWidth) {
@@ -256,7 +274,8 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
     .user-info-wrap {
       margin-left: 1em;
 
-      input[type="text"] {
+      input[type="text"],
+      input[type="email"] {
         width: 90%;
       }
     }
