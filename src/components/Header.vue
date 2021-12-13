@@ -37,7 +37,8 @@
               <router-link to="/user">ユーザー設定</router-link>
               <router-link to="/group">グループ設定</router-link>
               <router-link to="/about">このサイトについて</router-link>
-              <a @click="reload">更新</a>
+              <a @click="logout">ログアウト</a>
+              <a @click="reload">サイトの更新</a>
             </div>
           </div>
         </div>
@@ -70,6 +71,16 @@ export default {
     };
   },
   methods: {
+    logout() {
+      if (confirm("ログアウトしますか？")) {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            alert("ログアウトしました");
+          });
+      }
+    },
     openModal() {
       this.modalSeen = true;
       this.changeModalStyle();

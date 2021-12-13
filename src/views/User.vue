@@ -38,12 +38,14 @@ export default {
   },
   methods: {
     logout() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          alert("ログアウトしました");
-        });
+      if (confirm("ログアウトしますか？")) {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            alert("ログアウトしました");
+          });
+      }
     },
     selectedImage(e) {
       this.iconImage = e.target.files[0];
