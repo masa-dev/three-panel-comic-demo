@@ -159,6 +159,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+
 $inputColor: rgb(60, 161, 255);
 $inputShadowColor: rgba(60, 161, 255, 0.3);
 
@@ -241,6 +243,21 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
         outline: none;
         border-color: $inputColor;
         box-shadow: 0 0 0 2px $inputShadowColor;
+      }
+    }
+  }
+}
+@media only screen and (max-width: $responsiveMainWidth) {
+  #user {
+    p {
+      margin-left: 1em;
+    }
+
+    .user-info-wrap {
+      margin-left: 1em;
+
+      input[type="text"] {
+        width: 90%;
       }
     }
   }
