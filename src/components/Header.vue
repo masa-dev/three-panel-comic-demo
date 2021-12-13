@@ -61,7 +61,6 @@ export default {
   data() {
     return {
       isLogin: false,
-      userName: "",
       modalSeen: false,
       modalPosition: {
         top: "0px",
@@ -115,6 +114,9 @@ export default {
     photoURL() {
       return this.$store.state.user.photoURL;
     },
+    userName() {
+      return this.$store.state.user.userName;
+    },
   },
   mounted() {
     window.addEventListener("resize", this.changeModalStyle);
@@ -126,7 +128,6 @@ export default {
       if (user) {
         if (user.providerData.length !== 0) {
           this.isLogin = true;
-          this.userName = user.displayName;
           return;
         }
       }
