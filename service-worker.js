@@ -14,16 +14,12 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/three-panel-comic-demo/precache-manifest.692e38db9c9c48d1246b985f46e3bdb0.js"
+  "/three-panel-comic-demo/precache-manifest.257f59365a1fa74cc4d4b0c71ce93f0a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "three-panel-comic-demo"});
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
+workbox.core.skipWaiting();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
