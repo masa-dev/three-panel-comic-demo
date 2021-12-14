@@ -33,24 +33,6 @@
               v-bind:style="modalPosition"
               @click="closeModal"
             >
-              <router-link to="/">
-                <span class="header-shortcut-icon"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    class="bi bi-house"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
-                    /></svg></span
-                >トップページ</router-link
-              >
               <router-link to="/user">
                 <span class="header-shortcut-icon"
                   ><svg
@@ -86,6 +68,24 @@
                     /></svg></span
                 >グループ設定</router-link
               >
+              <router-link to="/" class="shortcut-top-bordered">
+                <span class="header-shortcut-icon"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    class="bi bi-house"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
+                    /></svg></span
+                >トップページ</router-link
+              >
               <router-link to="/about">
                 <span class="header-shortcut-icon"
                   ><svg
@@ -102,7 +102,7 @@
                     /></svg></span
                 >このサイトについて</router-link
               >
-              <a @click="logout">
+              <a @click="logout" class="shortcut-top-bordered">
                 <span class="header-shortcut-icon"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -319,7 +319,7 @@ header {
         .modal-portal {
           .portal-popover {
             position: absolute;
-            width: 200px;
+            width: 220px;
             border-radius: 5px;
             background-color: rgb(245, 243, 235);
             box-shadow: 0 3px 12px -1px #04253f40;
@@ -337,7 +337,6 @@ header {
               line-height: 1.5;
               font-size: 15px;
               text-decoration: none;
-              border-top: solid rgb(182, 182, 182) 1px;
               transition: 0.2s;
               cursor: pointer;
 
@@ -353,8 +352,12 @@ header {
                 background-color: rgb(233, 229, 217);
               }
 
+              &.shortcut-top-bordered {
+                border-top: solid rgb(182, 182, 182) 1px;
+              }
+
               span.header-shortcut-icon {
-                margin-right: 10px;
+                margin-right: 15px;
 
                 svg {
                   color: rgb(231, 86, 86);

@@ -256,6 +256,8 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
     }
 
     input[readonly] {
+      background-color: rgb(233, 233, 233);
+
       &:hover,
       &:focus {
         outline: none;
