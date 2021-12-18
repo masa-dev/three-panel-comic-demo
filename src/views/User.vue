@@ -37,6 +37,9 @@
             height="110"
             id="user-icon-input-img"
           />
+          <div class="select-image-icon">
+            <b-icon-camera-fill></b-icon-camera-fill>
+          </div>
         </div>
       </label>
     </div>
@@ -178,6 +181,7 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
   }
 
   .user-icon-wrap {
+    position: relative;
     display: inline-block;
     width: 110px;
     height: 110px;
@@ -189,6 +193,28 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
       vertical-align: top;
       overflow: hidden;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .select-image-icon {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      padding: 8px;
+      vertical-align: center;
+      color: rgb(65, 65, 65);
+      background-color: rgb(194, 202, 204);
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      transition: 0.3s;
+
+      &:hover {
+        color: rgb(7, 143, 255);
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
