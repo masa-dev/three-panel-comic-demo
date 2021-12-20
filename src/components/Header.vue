@@ -3,7 +3,7 @@
     <div class="header-div">
       <div class="title-bar">
         <router-link to="/">
-          <h1>３コマ漫画アプリ</h1>
+          <h1>認知行動療法３コマ漫画</h1>
         </router-link>
       </div>
       <div class="user-bar">
