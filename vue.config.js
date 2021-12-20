@@ -6,4 +6,10 @@ module.exports = {
       skipWaiting: true,
     },
   },
+  pages: {
+    index: {
+      entry: "src/main.js",
+      title: "認知行動療法３コマ漫画",
+    },
+  },
 };
