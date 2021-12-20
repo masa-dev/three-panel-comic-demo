@@ -206,8 +206,8 @@ header {
             padding: 0;
 
             img {
-              width: 100%;
-              height: 100%;
+              width: inherit;
+              height: inherit;
               object-fit: cover;
               border-radius: 100%;
               vertical-align: top;
