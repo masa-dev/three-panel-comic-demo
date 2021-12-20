@@ -291,7 +291,7 @@ header {
             background: transparent;
             inset: 0px;
             cursor: auto;
-            z-index: 99px;
+            z-index: 99;
           }
         }
       }
