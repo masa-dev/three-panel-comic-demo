@@ -13,8 +13,6 @@
         </router-link>
       </li>
     </ul>
-    <h2>login</h2>
-    <router-link to="login">login</router-link>
   </div>
 </template>
 
