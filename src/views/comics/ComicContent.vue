@@ -49,7 +49,7 @@
       </Flicking>
     </div>
     <p style="text-align: center; display: none">
-      選択番号：<span id="selected-index">1</span>
+      選択番号: <span id="selected-index">1</span>
     </p>
 
     <div class="flex-container">
@@ -92,6 +92,11 @@ export default {
         secondText: "",
         thirdText: "",
       },
+      log: {
+        key: null,
+        finished: [true],
+        isSend: false,
+      },
       plugins: [new Arrow(), new Pagination({ type: "fraction" })],
     };
   },
@@ -101,13 +106,68 @@ export default {
   methods: {
     changePanel(e) {
       this.selectedIndex = e.index;
+      let count = 0;
+      let panelLength = 4;
+
       if (this.thirdImages.length > 0) {
         this.selected.imageUrl = this.thirdImages[e.index].url;
         this.selected.thirdText = this.thirdImages[e.index].text;
+
+        this.log.finished[e.index] = true;
       }
       if (this.secondImages.length > 0) {
         this.selected.secondText = this.secondImages[e.index].longText;
       }
+
+      for (let i = 0; i < panelLength; i++) {
+        if (this.log.finished[i] === true) {
+          count++;
+        }
+      }
+
+      if (count === panelLength) {
+        this.sendLog(true);
+      }
+    },
+    sendLog(isDone) {
+      if (this.log.isSend) return;
+
+      const comicId = this.$route.params.id;
+      const database = firebase.database();
+
+      let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          let logRef;
+          let currentDate = new Date();
+
+          // ログの参照設定
+          // ログを作成する際は自動でIDを振る
+          if (this.log.key) {
+            logRef = database.ref(`logs/toda/${user.uid}/${this.log.key}`);
+          } else {
+            logRef = database.ref(`logs/toda/${user.uid}`).push();
+            this.log.key = logRef.key;
+          }
+
+          // ログの送信
+          if (isDone === false) {
+            logRef.set({
+              comicId: comicId,
+              startDate: currentDate.getTime(),
+              done: false,
+            });
+          } else {
+            logRef.update({
+              endDate: currentDate.getTime(),
+              done: true,
+            });
+
+            this.log.isSend = true;
+          }
+        }
+
+        unsubscribe();
+      });
     },
   },
   async mounted() {
@@ -179,6 +239,8 @@ export default {
     // スタイルの調整
     document.getElementsByClassName("flicking-camera")[0].style.height =
       "unset";
+
+    this.sendLog(false);
 
     function getImageUrl(refId, name) {
       return new Promise((resolve) => {
