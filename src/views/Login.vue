@@ -7,6 +7,7 @@
 <script>
 import firebaseConfig from "@/util/firebaseConfig.js";
 import firebase from "firebase/compat/app";
+import "firebase/compat/database";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 
@@ -68,6 +69,19 @@ export default {
             } else {
               return enText;
             }
+          }
+        },
+        // ログイン成功時にデータベースにemailを追加
+        signInSuccessWithAuthResult(authResult) {
+          const user = authResult.user;
+
+          if (user && user.providerData.length !== 0) {
+            const userRef = firebase.database().ref(`users/${user.uid}`);
+            userRef.update({
+              email: user.email,
+            });
+
+            this.$router.push({ path: "/" });
           }
         },
       },
