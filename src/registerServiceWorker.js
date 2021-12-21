@@ -21,6 +21,19 @@ if (process.env.NODE_ENV === "production") {
     },
     updated() {
       console.log("New content is available; please refresh.");
+
+      // サイトを更新する
+      alert("新しいアップデートを確認しました。\nサイトを更新します。");
+
+      window.navigator.serviceWorker
+        .getRegistrations()
+        .then((registrations) => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+
+      window.location.reload(true);
     },
     offline() {
       console.log(
