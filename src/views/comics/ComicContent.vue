@@ -70,7 +70,6 @@
 <script>
 import firebaseConfig from "@/util/firebaseConfig.js";
 import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { Flicking } from "@egjs/vue-flicking";
 import { Arrow, Pagination } from "@egjs/flicking-plugins";
@@ -133,48 +132,44 @@ export default {
       if (this.log.isSend) return;
 
       const comicId = this.$route.params.id;
+      const uid = this.$store.state.user.uid;
       const database = firebase.database();
 
-      let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          let logRef;
-          let currentDate = new Date();
+      if (this.$store.state.auth.isAuth) {
+        let logRef;
+        let currentDate = new Date();
 
-          // ログの参照設定
-          // ログを作成する際は自動でIDを振る
-          if (this.log.key) {
-            logRef = database.ref(`logs/toda/${user.uid}/${this.log.key}`);
-          } else {
-            logRef = database.ref(`logs/toda/${user.uid}`).push();
-            this.log.key = logRef.key;
-          }
-
-          // ログの送信
-          if (isDone === false) {
-            logRef.set({
-              comicId: comicId,
-              startDate: currentDate.getTime(),
-              done: false,
-            });
-          } else {
-            logRef.update({
-              endDate: currentDate.getTime(),
-              done: true,
-            });
-
-            this.log.isSend = true;
-          }
+        // ログの参照設定
+        // ログを作成する際は自動でIDを振る
+        if (this.log.key) {
+          logRef = database.ref(`logs/toda/${uid}/${this.log.key}`);
+        } else {
+          logRef = database.ref(`logs/toda/${uid}`).push();
+          this.log.key = logRef.key;
         }
 
-        unsubscribe();
-      });
+        // ログの送信
+        if (isDone === false) {
+          logRef.set({
+            comicId: comicId,
+            startDate: currentDate.getTime(),
+            done: false,
+          });
+        } else {
+          logRef.update({
+            endDate: currentDate.getTime(),
+            done: true,
+          });
+
+          this.log.isSend = true;
+        }
+      }
     },
   },
   async mounted() {
     const comicId = this.$route.params.id;
 
     firebase.initializeApp(firebaseConfig);
-    firebase.auth();
 
     const comicStorageRef = firebase
       .storage()

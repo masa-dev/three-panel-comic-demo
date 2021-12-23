@@ -39,10 +39,13 @@ export default {
 
         this.$store.commit("setAuth", true);
         this.$store.commit("updatePhotoURL", user.photoURL);
+        this.$store.commit("updateUserId", user.uid);
       } else {
         this.$store.commit("setAuth", false);
         this.$store.commit("updatePhotoURL");
         this.$store.commit("updateUserName");
+        this.$store.commit("updateUserId");
+
         if (this.$router.currentRoute.name !== "Login")
           this.$router.push({ path: "login" });
       }

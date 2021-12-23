@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <div class="user-bar">
-        <div class="user-link" v-if="isLogin">
+        <div class="user-link" v-if="isAuth">
           <button class="header-user-photo" @click="openModal">
             <img :src="photoURL" alt="" />
           </button>
@@ -54,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div class="login-link" v-if="!isLogin">
+        <div class="login-link" v-if="!isAuth">
           <router-link to="/login">
             <button>ログイン</button>
           </router-link>
@@ -65,20 +65,17 @@
 </template>
 
 <script>
-import firebaseConfig from "../util/firebaseConfig";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
 export default {
   data() {
     return {
-      isLogin: false,
       modalSeen: false,
       modalPosition: {
         top: "0px",
         right: "0px",
       },
-      //photoURL: this.$store.state.user.photoURL,
     };
   },
   methods: {
@@ -129,22 +126,13 @@ export default {
     userName() {
       return this.$store.state.user.userName;
     },
+    isAuth() {
+      return this.$store.state.auth.isAuth;
+    },
   },
   mounted() {
     window.addEventListener("resize", this.changeModalStyle);
     this.changeModalStyle();
-
-    firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        if (user.providerData.length !== 0) {
-          this.isLogin = true;
-          return;
-        }
-      }
-      this.isLogin = false;
-    });
   },
   beforeDestroy() {
     window.addEventListener("resize", this.changeModalStyle);

@@ -14,6 +14,7 @@ export default new Vuex.Store({
     },
     user: {
       userName: null,
+      uid: null,
       photoURL: require("@/assets/no_user.png"),
     },
   },
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     updateUserName(state, name) {
       state.user.userName = name ? name : null;
+    },
+    updateUserId(state, id) {
+      state.user.uid = id ? id : null;
     },
   },
   actions: {},
