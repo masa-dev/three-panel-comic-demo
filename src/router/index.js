@@ -52,6 +52,11 @@ const routes = [
     name: "Group",
     component: () => import("../views/Group.vue"),
   },
+  {
+    path: "/log",
+    name: "Log",
+    component: () => import("../views/Log.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -31,6 +31,11 @@
                   ><b-icon-people-fill></b-icon-people-fill></span
                 >グループ設定</router-link
               >
+              <router-link to="/log">
+                <span class="header-shortcut-icon"
+                  ><b-icon-clock-history></b-icon-clock-history></span
+                >ログ</router-link
+              >
               <router-link to="/" class="shortcut-top-bordered">
                 <span class="header-shortcut-icon"
                   ><b-icon-house-fill></b-icon-house-fill></span
