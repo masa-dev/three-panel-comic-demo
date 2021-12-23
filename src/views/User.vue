@@ -60,6 +60,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import "firebase/compat/database";
+import checkNgWords from "../util/checkNgWords";
 
 export default {
   data() {
@@ -73,6 +74,11 @@ export default {
       let userName = document.getElementById("user-name-input").value;
       if (userName.length > 10) {
         alert("名前の最大文字数は10です。");
+        return;
+      }
+
+      if (checkNgWords(userName)) {
+        alert("NGワードが含まれています。");
         return;
       }
 
