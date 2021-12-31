@@ -5,12 +5,11 @@
     <div class="flex-container">
       <div class="text-wrap flex-left-item">
         <h3>状況</h3>
-        <p style="white-space: pre-line">{{ firstImage.longText }}</p>
+        <p>状況のスライドです。</p>
       </div>
       <div class="page-wrapper flex-right-item">
         <div class="comic-page">
-          <img v-bind:src="firstImage.url" alt="" />
-          <p>{{ firstImage.shortText }}</p>
+          <img v-bind:src="imageUrl.first" alt="" />
         </div>
       </div>
     </div>
@@ -22,7 +21,10 @@
         <p style="color: #28a745">右のスライドを動かして選んでください。</p>
       </div>
       <Flicking
+        class="flex-right-item"
+        ref="flicking"
         :options="{
+          autoInit: false,
           align: 'center',
           circular: true,
           deceleration: 0.05,
@@ -31,17 +33,15 @@
           renderOnlyVisible: true,
         }"
         :plugins="plugins"
-        class="flex-right-item"
         @changed="changePanel"
       >
         <div
-          v-for="page in secondImages"
-          :key="page.id"
-          :id="`page-${page.id}`"
+          v-for="(url, index) in imageUrl.second"
+          :key="index"
+          :id="`page-${index}`"
           class="panel comic-page"
         >
-          <img :src="page.url" alt="" />
-          <p>{{ page.shortText }}</p>
+          <img :src="url" alt="" />
         </div>
         <span slot="viewport" class="flicking-arrow-prev is-circle"></span>
         <span slot="viewport" class="flicking-arrow-next is-circle"></span>
@@ -55,12 +55,15 @@
     <div class="flex-container">
       <div class="text-wrap flex-left-item">
         <h3>感情</h3>
-        <p>{{ selected.thirdText }}</p>
+        <p>認識に対応したスライドが表示されます。</p>
       </div>
       <div class="page-wrapper flex-right-item">
         <div class="comic-page">
-          <img id="emotional-image" :src="selected.imageUrl" alt="" />
-          <p id="emotional-text">{{ selected.thirdText }}</p>
+          <img
+            id="emotional-image"
+            :src="imageUrl.third[selected.index]"
+            alt=""
+          />
         </div>
       </div>
     </div>
@@ -68,28 +71,24 @@
 </template>
 
 <script>
-import firebaseConfig from "@/util/firebaseConfig.js";
+//import firebaseConfig from "@/util/firebaseConfig.js";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import { Flicking } from "@egjs/vue-flicking";
 import { Arrow, Pagination } from "@egjs/flicking-plugins";
-import axios from "axios";
 
 export default {
   data() {
     return {
-      firstImage: {
-        url: "",
-        shortText: "",
-        longText: "",
+      originalPath: "https://buturi.heteml.net/student/2021/toda/comics/",
+      pageLength: 0,
+      imageUrl: {
+        first: "",
+        second: [],
+        third: [],
       },
-      secondImages: [],
-      thirdImages: [],
       selected: {
         index: null,
-        imageUrl: "",
-        secondText: "",
-        thirdText: "",
       },
       log: {
         key: null,
@@ -104,27 +103,20 @@ export default {
   },
   methods: {
     changePanel(e) {
-      this.selectedIndex = e.index;
+      this.selected.index = e.index;
       let count = 0;
-      let panelLength = 4;
 
-      if (this.thirdImages.length > 0) {
-        this.selected.imageUrl = this.thirdImages[e.index].url;
-        this.selected.thirdText = this.thirdImages[e.index].text;
-
+      if (this.pageLength > 0) {
         this.log.finished[e.index] = true;
       }
-      if (this.secondImages.length > 0) {
-        this.selected.secondText = this.secondImages[e.index].longText;
-      }
 
-      for (let i = 0; i < panelLength; i++) {
+      for (let i = 0; i < this.pageLength; i++) {
         if (this.log.finished[i] === true) {
           count++;
         }
       }
 
-      if (count === panelLength) {
+      if (count === this.pageLength) {
         this.sendLog(true);
       }
     },
@@ -168,89 +160,39 @@ export default {
   },
   async mounted() {
     const comicId = this.$route.params.id;
+    this.selected.index = 0;
+    this.imageUrl.first = `${this.originalPath}/${comicId}/1.png`;
 
-    firebase.initializeApp(firebaseConfig);
+    // ページの長さを取得する
+    await fetch(`${this.originalPath}countPage.php?num=${comicId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === false) {
+          alert("漫画が存在しません");
+        } else {
+          this.pageLength = data.count;
+        }
+      })
+      .catch((e) => console.error(e));
 
-    const comicStorageRef = firebase
-      .storage()
-      .ref()
-      .child("comics")
-      .child(comicId.toString());
-
-    comicStorageRef
-      .child("0.png")
-      .getDownloadURL()
-      .then((url) => {
-        this.firstImage.url = url;
-      });
-
-    // スライド用の画像を取得
-    for (let i = 0; i < 4; i++) {
-      let url = await getImageUrl(comicId, `1-${i}.png`);
-      this.secondImages.push({
-        fileName: `1-${i}.png`,
-        url: url,
-        shortText: "",
-        longText: "",
-      });
+    for (let i = 1; i <= this.pageLength; i++) {
+      this.imageUrl.second.push(`${this.originalPath}${comicId}/2-${i}.png`);
+      this.imageUrl.third.push(`${this.originalPath}${comicId}/3-${i}.png`);
     }
 
-    // 感情の画像取得
-    for (let i = 0; i < 4; i++) {
-      let url = await getImageUrl(comicId, `2-${i}.png`);
+    // 短時間待機する
+    await sleep(100);
+    this.$refs.flicking.init();
 
-      this.thirdImages.push({
-        url: url,
-        text: "",
-      });
-    }
-    this.selected.imageUrl = this.thirdImages[0].url;
-
-    // テキストの取得
-    comicStorageRef
-      .child("text.json")
-      .getDownloadURL()
-      .then((url) => {
-        axios(url).then(({ data }) => {
-          this.firstImage.shortText = data.first.short;
-          this.firstImage.longText = data.first.long;
-          for (let i = 0; i < 4; i++) {
-            this.secondImages[i].shortText = data.second[i].short;
-            this.secondImages[i].longText = data.second[i].long;
-            this.thirdImages[i].text = data.third[i];
-          }
-          this.selected.secondText = data.second[0].long;
-          this.selected.thirdText = data.third[0];
-        });
-      });
-
-    // "flicking-arrow-disabled" classの削除
-    const deleteClassName = "flicking-arrow-disabled";
-    const arrowElement = document.getElementsByClassName(deleteClassName);
-    for (let i = 0; i < 2; i++) {
-      if (arrowElement[0].classList.contains(deleteClassName))
-        arrowElement[0].classList.remove(deleteClassName);
-    }
-    // スタイルの調整
-    document.getElementsByClassName("flicking-camera")[0].style.height =
-      "unset";
-
+    // ログの初期化
     this.sendLog(false);
 
-    function getImageUrl(refId, name) {
+    // スリープ関数
+    function sleep(ms = 1000) {
       return new Promise((resolve) => {
-        const comicStorageRef = firebase
-          .storage()
-          .ref()
-          .child("comics")
-          .child(refId.toString());
-
-        comicStorageRef
-          .child(name)
-          .getDownloadURL()
-          .then((url) => {
-            resolve(url);
-          });
+        setTimeout(() => {
+          resolve();
+        }, ms);
       });
     }
   },
@@ -278,33 +220,41 @@ h2 {
   }
 
   .flex-right-item {
+    padding-bottom: 10px;
     width: 60%;
-  }
 
-  .flicking-pagination {
-    text-align: center;
-  }
+    &.flicking-viewport {
+      position: relative;
 
-  .flicking-camera {
-    height: unset;
-  }
+      .flicking-pagination {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+      }
 
-  .flicking-pagination-bullet {
-    padding: 2px;
-  }
+      .flicking-camera {
+        height: unset;
+      }
 
-  .flicking-arrow-next {
-    animation-name: arrow-next;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
+      .flicking-pagination-bullet {
+        padding: 2px;
+      }
 
-  .flicking-arrow-prev {
-    animation-name: arrow-prev;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+      .flicking-arrow-next {
+        animation-name: arrow-next;
+        animation-duration: 3s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+
+      .flicking-arrow-prev {
+        animation-name: arrow-prev;
+        animation-duration: 3s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+    }
   }
 }
 
@@ -322,9 +272,10 @@ h2 {
 
   > img {
     pointer-events: none;
-    height: 90%;
+    height: 100%;
     width: auto;
     margin: 0 auto;
+    border-radius: inherit;
   }
 
   > p {
