@@ -191,7 +191,14 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
     display: inline-block;
     width: 110px;
     height: 110px;
+    border-radius: 100%;
     cursor: pointer;
+
+    &:hover {
+      .select-image-icon {
+        color: rgb(7, 143, 255);
+      }
+    }
 
     img {
       object-fit: cover;

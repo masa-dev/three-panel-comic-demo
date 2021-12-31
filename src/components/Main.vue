@@ -28,13 +28,9 @@ main {
   h3 {
     font-size: 1.17rem;
     padding: 10px;
-    padding-left: 5px;
+    padding-left: 15px;
     margin-left: 10px;
     border-left: 5px solid rgb(238, 158, 54);
-
-    &::before {
-      content: "： ";
-    }
   }
 
   p {
