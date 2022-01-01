@@ -1,177 +1,113 @@
 <template>
   <div id="group">
-    <h2>グループ</h2>
-    <div v-if="group.isJoin === true">
+    <h2>グループ設定</h2>
+    <section>
       <h3>グループ情報</h3>
-      <p>グループ名 : {{ group.name }}</p>
-      <p>管理者</p>
+      <table class="group-info-table">
+        <tbody>
+          <tr>
+            <td>グループ名</td>
+            <td>:</td>
+            <td>{{ group.name }}</td>
+          </tr>
+          <tr>
+            <td>説明</td>
+            <td>:</td>
+            <td>{{ group.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h3>管理者一覧</h3>
       <ul>
-        <li v-for="(admin, index) in group.admins" :key="index">
-          {{ admin }}
-        </li>
+        <li v-for="(admin, index) in group.admins" :key="index">{{ admin }}</li>
       </ul>
-      <p>メンバー</p>
+    </section>
+    <section v-if="group.isAdmin">
+      <h3>メンバーリスト</h3>
       <ul>
         <li v-for="(member, index) in group.members" :key="index">
-          {{ member }}
+          {{ member.name }}
         </li>
       </ul>
-      <div v-if="group.isAdmin">
-        <p>あなたは管理者です</p>
-      </div>
-    </div>
-    <div v-if="group.isJoin === false">
-      <p>現在、グループに所属していません。</p>
-      <div class="create-group">
-        <h3>グループを作成する</h3>
-        <input
-          type="text"
-          placeholder="作成するグループ名"
-          v-model="input.groupName"
-        />
-        <button @click="createNewGroup">グループを作成する</button>
-      </div>
-      <div class="joinGroup">
-        <h3>グループに所属する</h3>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script>
-import firebaseConfig from "@/util/firebaseConfig.js";
+//import firebaseConfig from "@/util/firebaseConfig.js";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 
 export default {
   data() {
     return {
-      user: {
-        uid: "",
-      },
       group: {
-        isJoin: false,
         isAdmin: false,
         name: "",
+        description: "",
         members: [],
         admins: [],
       },
-      input: {
-        groupName: "",
-      },
     };
   },
-  methods: {
-    createNewGroup() {
-      // 入力されていない場合
-      if (!this.input.groupName) {
-        return;
-      }
-
-      const database = firebase.database();
-      const newGroupRef = database.ref("groups").push();
-      const userRef = database.ref("users").child(this.user.uid);
-      const groupKey = newGroupRef.key;
-
-      newGroupRef.set({
-        name: this.input.groupName,
-        admins: {
-          [this.user.uid]: true,
-        },
-        members: {
-          [this.user.uid]: true,
-        },
-      });
-
-      userRef.update({
-        group: groupKey,
-      });
-    },
-  },
+  methods: {},
   mounted() {
-    firebase.initializeApp(firebaseConfig);
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      const database = firebase.database();
+      const userRef = database.ref("users");
+      const groupRef = database.ref("group");
+      const adminRef = database.ref("admin-users");
 
-    let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        let user = firebase.auth().currentUser;
-        let database = firebase.database();
-        let usersRef = database.ref("users");
-        let userGroupRef = database.ref(`users/${user.uid}/group`);
+      // 管理者リストを表示する
+      adminRef.get().then((snapshot) => {
+        const adminList = snapshot.val();
+        this.group.admins.splice(0);
 
-        this.user.uid = user.uid;
-
-        userGroupRef.on("value", (userSnapshot) => {
-          let groupId = userSnapshot.val();
-
-          // グループに所属していない場合
-          if (!groupId) {
-            this.group.isJoin = false;
-            return;
+        for (let adminName in adminList) {
+          if (adminList[adminName]) {
+            userRef
+              .child(adminName)
+              .child("username")
+              .get()
+              .then((adminSnapshot) => {
+                this.group.admins.push(adminSnapshot.val());
+              });
           }
+        }
 
-          let joinGroupRef = database.ref(`groups/${groupId}`);
+        // 管理者チェック
+        if (adminList[user.uid]) {
+          this.group.isAdmin = true;
 
-          joinGroupRef.on("value", (groupSnapshot) => {
-            let group = groupSnapshot.val();
-            this.group.name = group.name;
-
-            if (group.members[user.uid]) {
-              this.group.isAdmin = group.admins[user.uid] ? true : false;
-
-              const memberIdArray = Object.keys(group.members);
-              const adminIdArray = Object.keys(group.admins);
-
-              this.group.isJoin = true;
-
-              // 管理者一覧の取得
-              this.group.admins.splice(0);
-
-              for (let adminId of adminIdArray) {
-                if (group.admins[adminId]) {
-                  usersRef
-                    .child(adminId)
-                    .child("username")
-                    .get()
-                    .then((userSnapshot) => {
-                      let userName = userSnapshot.val();
-                      if (userName) {
-                        this.group.admins.push(userName);
-                      }
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                    });
-                }
-              }
-
-              // メンバー一覧の取得
-              this.group.members.splice(0);
-              for (let memberId of memberIdArray) {
-                if (group.members[memberId]) {
-                  usersRef
-                    .child(memberId)
-                    .child("username")
-                    .get()
-                    .then((usersSnapshot) => {
-                      let userName = usersSnapshot.val();
-                      if (userName) {
-                        this.group.members.push(userName);
-                      }
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                    });
-                }
-              }
-            } else {
-              this.group.isJoin = false;
+          userRef.get().then((userSnapshot) => {
+            let users = userSnapshot.val();
+            for (let uid in users) {
+              this.group.members.push({ name: users[uid].username });
             }
           });
-        });
-      }
+        }
+      });
+
+      // グループ情報を取得する
+      groupRef.get().then((snapshot) => {
+        const groupInfo = snapshot.val();
+        this.group.name = groupInfo.name;
+        this.group.description = groupInfo.description;
+      });
 
       unsubscribe();
     });
   },
 };
 </script>
+
+<style lang="scss" scoped>
+table.group-info-table {
+  tr > td {
+    font-size: 1.1rem;
+    padding: 10px 10px;
+  }
+}
+</style>
