@@ -80,13 +80,12 @@ export default {
           const user = authResult.user;
 
           if (user && user.isAnonymous === false) {
-            const userRef = firebase.database().ref(`users/${user.uid}`);
-            userRef.update({
-              email: user.email,
-            });
-
-            this.$router.push({ path: "/" });
+            const userHideRef = firebase
+              .database()
+              .ref(`users-hide/${user.uid}`);
+            userHideRef.update({ email: user.email });
           }
+          goToTop();
         },
       },
     });
