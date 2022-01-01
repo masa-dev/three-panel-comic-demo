@@ -163,7 +163,7 @@ export default {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        if (user.providerData.length !== 0) {
+        if (user.isAnonymous === false) {
           this.email = user.email;
           return;
         }
