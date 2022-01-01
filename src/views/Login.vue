@@ -23,11 +23,15 @@ export default {
     },
   },
   mounted() {
+    const goToTop = () => {
+      this.$router.push({ path: "/" });
+    };
+
     firebase.initializeApp(firebaseConfig);
 
     firebase.auth().onAuthStateChanged((user) => {
-      if (user && user.providerData.length !== 0) {
-        this.$router.push({ path: "/" });
+      if (user && user.isAnonymous === false) {
+        goToTop();
       }
     });
 
@@ -75,7 +79,7 @@ export default {
         signInSuccessWithAuthResult(authResult) {
           const user = authResult.user;
 
-          if (user && user.providerData.length !== 0) {
+          if (user && user.isAnonymous === false) {
             const userRef = firebase.database().ref(`users/${user.uid}`);
             userRef.update({
               email: user.email,

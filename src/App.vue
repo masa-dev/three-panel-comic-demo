@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      if (user && user.isAnonymous === false) {
         const database = firebase.database();
         const userRef = database
           .ref()
