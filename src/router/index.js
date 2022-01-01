@@ -6,7 +6,6 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
     component: () => import("../views/Comic.vue"),
     children: [
       {
@@ -20,11 +19,6 @@ const routes = [
     path: "/comics",
     component: () => import("../views/Comic.vue"),
     children: [
-      {
-        path: "",
-        name: "ComicHome",
-        component: () => import("../views/comics/ComicList.vue"),
-      },
       {
         path: ":id",
         name: "ComicContent",
