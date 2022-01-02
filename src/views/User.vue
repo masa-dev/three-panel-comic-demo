@@ -72,8 +72,12 @@ export default {
   methods: {
     updateProfile() {
       let userName = document.getElementById("user-name-input").value;
+      if (userName.length === 0) {
+        alert("名前の最小文字数は1文字です。");
+        return;
+      }
       if (userName.length > 10) {
-        alert("名前の最大文字数は10です。");
+        alert("名前の最大文字数は10文字です。");
         return;
       }
 
