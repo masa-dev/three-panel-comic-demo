@@ -29,19 +29,25 @@ export default {
       })
       .catch((e) => console.error(e));
 
+    let linkArray = [];
+    let titleArray = [];
+
     for (let i = 1; i <= this.comicLength; i++) {
-      this.links.push(`comics/${i}`);
+      linkArray.push(`comics/${i}`);
+
       await fetch(`${this.originalPath}getData.php?num=${i}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === false) {
             console.error("fetch error: getData file throw error");
           } else {
-            this.titles.push(data.title);
+            titleArray.push(data.title);
           }
         })
         .catch((e) => console.error(e));
     }
+    this.links = linkArray;
+    this.titles = titleArray;
   },
 };
 </script>
