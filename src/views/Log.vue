@@ -1,16 +1,54 @@
 <template>
   <div id="log">
     <h2>ログ</h2>
-    <div class="log-item" v-for="(log, index) in logs" :key="index">
-      <p>漫画ID: {{ log.comicId }}</p>
-      <p>
-        実行状況:
-        <span :class="log.done ? 'log-done' : 'log-yet'">{{
-          log.done ? "終了済み" : "未完了"
-        }}</span>
-      </p>
-      <p>開始日時: {{ convertDate(log.startDate) }}</p>
-      <p v-if="log.endDate">終了日時: {{ convertDate(log.endDate) }}</p>
+    <div class="log-input">
+      <span>ソートする項目 : </span>
+      <select v-model="sortOption.type" @change="sortLog()">
+        <option value="startDate" selected>日時</option>
+        <option value="comicId">漫画ID</option>
+      </select>
+      <div id="sort-option">
+        <span>並び順 : </span>
+        <input
+          type="radio"
+          id="sort-option-asc"
+          checked
+          :value="false"
+          v-model="sortOption.isDesc"
+          @change="sortLog()"
+        /><label for="sort-option-asc">昇順</label>
+        <input
+          type="radio"
+          id="sort-option-desc"
+          :value="true"
+          v-model="sortOption.isDesc"
+          @change="sortLog()"
+        /><label for="sort-option-desc">降順</label>
+      </div>
+    </div>
+    <div class="log-item-wrapper">
+      <div
+        class="log-item"
+        v-show="logs.length !== 0"
+        v-for="(log, index) in logs"
+        :key="index"
+      >
+        <p>漫画ID: {{ log.comicId }}</p>
+        <p>
+          リンク:
+          <router-link :to="`./comics/${log.comicId}`">{{
+            titles[log.comicId]
+          }}</router-link>
+        </p>
+        <p>
+          実行状況:
+          <span :class="log.done ? 'log-done' : 'log-yet'">{{
+            log.done ? "終了済み" : "未完了"
+          }}</span>
+        </p>
+        <p>開始日時: {{ convertDate(log.startDate) }}</p>
+        <p v-if="log.endDate">終了日時: {{ convertDate(log.endDate) }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +60,13 @@ import "firebase/compat/database";
 export default {
   data() {
     return {
+      originalPath: "https://buturi.heteml.net/student/2021/toda/comics/",
       logs: [],
+      sortOption: {
+        type: "startDate",
+        isDesc: false, // 降順かどうか
+      },
+      titles: [],
     };
   },
   methods: {
@@ -39,50 +83,126 @@ export default {
 
       return str;
     },
+    // 更新を手動でできるように関数化する
+    fetchLogData(uid) {
+      const database = firebase.database();
+      const logRef = database.ref(`logs/toda/${uid}`);
+
+      logRef.once("value", (snapshot) => {
+        this.logs.splice(0);
+
+        snapshot.forEach((childSnapshot) => {
+          let childData = childSnapshot.val();
+          this.logs.push(childData);
+        });
+      });
+    },
+    sortLog() {
+      const type = this.sortOption.type;
+      const isDesc = this.sortOption.isDesc;
+
+      this.logs.sort((a, b) => {
+        return isDesc ? b[type] - a[type] : a[type] - b[type];
+      });
+    },
   },
-  mounted() {
+  async mounted() {
     let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         let uid = user.uid;
-        const database = firebase.database();
-        const logRef = database.ref(`logs/toda/${uid}`);
 
-        logRef.on("value", (snapshot) => {
-          this.logs.splice(0);
-
-          snapshot.forEach((childSnapshot) => {
-            let childData = childSnapshot.val();
-            this.logs.push(childData);
-          });
-        });
+        this.fetchLogData(uid);
       }
 
       unsubscribe();
     });
+
+    let comicLength = 0;
+    await fetch(`${this.originalPath}countComic.php`)
+      .then((res) => res.json())
+      .then((data) => {
+        comicLength = data.count;
+      })
+      .catch((e) => console.error(e));
+
+    for (let i = 1; i <= comicLength; i++) {
+      await fetch(`${this.originalPath}getData.php?num=${i}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === false) {
+            console.error("fetch error: getData file throw error");
+          } else {
+            this.titles[i] = data.title;
+          }
+        })
+        .catch((e) => console.error(e));
+    }
+
+    console.log(this.titles);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.log-item {
-  padding: 15px 20px;
-  margin: 20px 0;
-  background-color: rgb(238, 226, 192);
-  border-radius: 15px;
+$input-border-color: rgb(60, 161, 255);
+$input-shadow-color: rgb(60, 161, 255, 0.3);
 
-  p {
-    margin: {
-      top: 0px;
-      bottom: 0px;
+.log-input {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1.1rem;
+
+  select {
+    font-size: 1rem;
+    width: 80%;
+    padding: 10px 20px;
+    border: 1px solid gray;
+    border-radius: 7px;
+    margin: 10px 0;
+
+    &:hover,
+    &:focus {
+      border-color: $input-border-color;
+      box-shadow: 0 0 0 3px $input-shadow-color;
     }
 
-    span.log- {
-      &done {
-        color: rgb(6, 148, 230);
+    &:focus {
+      outline: none;
+    }
+  }
+  #sort-option {
+    label {
+      margin-right: 15px;
+    }
+  }
+}
+
+.log-item-wrapper {
+  width: 95%;
+  max-height: 700px;
+  margin: 10px auto;
+  overflow-y: scroll;
+
+  .log-item {
+    padding: 15px 20px;
+    margin: 20px 0;
+    background-color: rgb(238, 226, 192);
+    border-radius: 15px;
+
+    p {
+      margin: {
+        top: 0px;
+        bottom: 0px;
       }
 
-      &yet {
-        color: rgb(235, 95, 31);
+      span.log- {
+        &done {
+          color: rgb(6, 148, 230);
+        }
+
+        &yet {
+          color: rgb(235, 95, 31);
+        }
       }
     }
   }
