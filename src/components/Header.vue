@@ -12,7 +12,10 @@
             <img :src="photoURL" alt="" />
           </button>
           <button class="header-user-name" @click="openModal">
-            {{ userName }}<b-icon-caret-down-fill></b-icon-caret-down-fill>
+            {{ userName
+            }}<b-icon-caret-down-fill
+              :class="{ rotated: modalSeen }"
+            ></b-icon-caret-down-fill>
           </button>
           <div class="modal-portal" v-if="modalSeen">
             <div class="portal-backdrop" @click="closeModal"></div>
@@ -216,8 +219,14 @@ header {
 
             svg {
               height: 100%;
-              width: 10px;
-              vertical-align: middle;
+              width: 13px;
+              margin-left: 5px;
+              vertical-align: baseline;
+              transition: transform 0.15s linear;
+
+              &.rotated {
+                transform: rotate(180deg);
+              }
             }
           }
         }
