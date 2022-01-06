@@ -35,7 +35,7 @@ export default {
     for (let i = 1; i <= this.comicLength; i++) {
       linkArray.push(`comics/${i}`);
 
-      await fetch(`${this.originalPath}getData.php?num=${i}`)
+      await fetch(`${this.originalPath}getData.php?comic=${i}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === false) {

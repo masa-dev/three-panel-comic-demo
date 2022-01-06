@@ -126,7 +126,7 @@ export default {
       .catch((e) => console.error(e));
 
     for (let i = 1; i <= comicLength; i++) {
-      await fetch(`${this.originalPath}getData.php?num=${i}`)
+      await fetch(`${this.originalPath}getData.php?comic=${i}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === false) {

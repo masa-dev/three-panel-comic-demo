@@ -164,7 +164,7 @@ export default {
     this.imageUrl.first = `${this.originalPath}/${comicId}/1.png`;
 
     // ページの長さを取得する
-    await fetch(`${this.originalPath}countPage.php?num=${comicId}`)
+    await fetch(`${this.originalPath}countPage.php?comic=${comicId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === false) {
