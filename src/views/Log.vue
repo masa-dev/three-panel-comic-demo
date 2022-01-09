@@ -85,15 +85,19 @@ export default {
     },
     // 更新を手動でできるように関数化する
     fetchLogData(uid) {
-      const database = firebase.database();
-      const logRef = database.ref(`logs/toda/${uid}`);
+      return new Promise((resolve) => {
+        const database = firebase.database();
+        const logRef = database.ref(`logs/toda/${uid}`);
 
-      logRef.once("value", (snapshot) => {
-        this.logs.splice(0);
+        logRef.once("value", (snapshot) => {
+          this.logs.splice(0);
 
-        snapshot.forEach((childSnapshot) => {
-          let childData = childSnapshot.val();
-          this.logs.push(childData);
+          snapshot.forEach((childSnapshot) => {
+            let childData = childSnapshot.val();
+            this.logs.push(childData);
+          });
+
+          resolve();
         });
       });
     },
@@ -107,36 +111,39 @@ export default {
     },
   },
   async mounted() {
-    let unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    let unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         let uid = user.uid;
+        let comicLength = 0;
 
-        this.fetchLogData(uid);
+        // 漫画数を取得
+        await fetch(`${this.originalPath}countComic.php`)
+          .then((res) => res.json())
+          .then((data) => {
+            comicLength = data.count;
+          })
+          .catch((e) => console.error(e));
+
+        // タイトルの取得
+        for (let i = 1; i <= comicLength; i++) {
+          await fetch(`${this.originalPath}getData.php?comic=${i}`)
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === false) {
+                console.error("fetch error: getData file throw error");
+              } else {
+                this.titles[i] = data.title;
+              }
+            })
+            .catch((e) => console.error(e));
+        }
+
+        // ログを表示
+        await this.fetchLogData(uid);
       }
 
       unsubscribe();
     });
-
-    let comicLength = 0;
-    await fetch(`${this.originalPath}countComic.php`)
-      .then((res) => res.json())
-      .then((data) => {
-        comicLength = data.count;
-      })
-      .catch((e) => console.error(e));
-
-    for (let i = 1; i <= comicLength; i++) {
-      await fetch(`${this.originalPath}getData.php?comic=${i}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status === false) {
-            console.error("fetch error: getData file throw error");
-          } else {
-            this.titles[i] = data.title;
-          }
-        })
-        .catch((e) => console.error(e));
-    }
   },
 };
 </script>
