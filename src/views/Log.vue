@@ -158,8 +158,9 @@ $input-shadow-color: rgb(60, 161, 255, 0.3);
   font-size: 1.1rem;
 
   select {
-    font-size: 1rem;
     width: 80%;
+    font-size: 1rem;
+    background-color: white;
     padding: 10px 20px;
     border: 1px solid gray;
     border-radius: 7px;
@@ -189,10 +190,10 @@ $input-shadow-color: rgb(60, 161, 255, 0.3);
   overflow-y: scroll;
 
   .log-item {
-    padding: 15px 20px;
-    margin: 20px 0;
     background-color: rgb(238, 226, 192);
+    padding: 15px 20px;
     border-radius: 15px;
+    margin: 20px 0;
 
     p {
       margin: {
