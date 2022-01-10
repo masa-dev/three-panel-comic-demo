@@ -3,7 +3,12 @@
     <div class="header-div">
       <div class="title-bar">
         <router-link to="/">
-          <h1>認知行動療法３コマ漫画</h1>
+          <h1>
+            <img
+              src="@/assets/logo.png"
+              alt="logo icon"
+            />認知行動療法３コマ漫画
+          </h1>
         </router-link>
       </div>
       <div class="user-bar">
@@ -179,6 +184,12 @@ header {
         margin: {
           top: 7px;
           bottom: 8px;
+        }
+
+        img {
+          height: 1em;
+          margin-right: 5px;
+          vertical-align: bottom;
         }
       }
     }
