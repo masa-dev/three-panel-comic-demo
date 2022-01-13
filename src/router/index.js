@@ -43,8 +43,22 @@ const routes = [
   },
   {
     path: "/group",
-    name: "Group",
     component: () => import("../views/Group.vue"),
+    children: [
+      {
+        path: "",
+        name: "Group Home",
+        component: () => import("../views/group/GroupInfo.vue"),
+      },
+      {
+        path: "members",
+        component: () => import("../views/group/MemberList.vue"),
+      },
+      {
+        path: "custom",
+        component: () => import("../views/group/CustomGroup.vue"),
+      },
+    ],
   },
   {
     path: "/log",
