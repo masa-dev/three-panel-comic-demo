@@ -161,6 +161,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/mixin";
+
+.search-user-name {
+  input {
+    @include input();
+    margin: 0 20px;
+    width: 300px;
+  }
+}
+
 .user-table-wrapper {
   overflow-x: auto;
   table.group-member-list {
@@ -228,6 +238,15 @@ export default {
       &:first-child {
         border: none;
       }
+    }
+  }
+}
+
+@media (max-width: $responsiveMainWidth) {
+  .search-user-name {
+    input {
+      margin: 0;
+      width: 90%;
     }
   }
 }

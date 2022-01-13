@@ -181,9 +181,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/variables";
-
-$inputColor: rgb(60, 161, 255);
-$inputShadowColor: rgba(60, 161, 255, 0.3);
+@import "../styles/mixin";
 
 #user {
   p {
@@ -274,27 +272,13 @@ $inputShadowColor: rgba(60, 161, 255, 0.3);
 
     input[type="text"],
     input[type="email"] {
+      @include input();
+
       display: block;
       width: 400px;
-      font-size: 0.85em;
       margin: {
         top: 0.5em;
         bottom: 0.5em;
-      }
-      padding: {
-        top: 0.8em;
-        left: 1em;
-        bottom: 0.7em;
-      }
-      border: 1px solid rgb(182, 182, 182);
-      border-radius: 5px;
-      transition: 0.3s;
-
-      &:hover,
-      &:focus {
-        outline: none;
-        border-color: $inputColor;
-        box-shadow: 0 0 0 2px $inputShadowColor;
       }
     }
 

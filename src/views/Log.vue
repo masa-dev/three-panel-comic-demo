@@ -2,8 +2,12 @@
   <div id="log">
     <h2>ログ</h2>
     <div class="log-input">
-      <span>ソートする項目 : </span>
-      <select v-model="sortOption.type" @change="sortLog()">
+      <label for="sort-option-select">ソートする項目 : </label>
+      <select
+        v-model="sortOption.type"
+        @change="sortLog()"
+        id="sort-option-select"
+      >
         <option value="startDate" selected>日時</option>
         <option value="comicId">漫画ID</option>
       </select>
@@ -149,8 +153,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$input-border-color: rgb(60, 161, 255);
-$input-shadow-color: rgb(60, 161, 255, 0.3);
+@import "../styles/variables";
+@import "../styles/mixin";
 
 .log-input {
   width: 90%;
@@ -158,27 +162,22 @@ $input-shadow-color: rgb(60, 161, 255, 0.3);
   font-size: 1.1rem;
 
   select {
+    @include input();
     width: 80%;
-    font-size: 1rem;
-    background-color: white;
-    padding: 10px 20px;
-    border: 1px solid gray;
-    border-radius: 7px;
     margin: 10px 0;
-
-    &:hover,
-    &:focus {
-      border-color: $input-border-color;
-      box-shadow: 0 0 0 3px $input-shadow-color;
-    }
-
-    &:focus {
-      outline: none;
-    }
+    cursor: pointer;
   }
+
   #sort-option {
+    input[type="radio"] {
+      accent-color: $inputColor;
+      margin-right: 0;
+      cursor: pointer;
+    }
     label {
+      padding: 0 0.3rem;
       margin-right: 15px;
+      cursor: pointer;
     }
   }
 }
