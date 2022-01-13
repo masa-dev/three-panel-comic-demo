@@ -1,6 +1,7 @@
 <template>
   <div id="login">
     <div id="firebaseui-auth-container"></div>
+    <router-link ref="redirectHome" to="/" style="display: none"></router-link>
   </div>
 </template>
 
@@ -21,11 +22,12 @@ export default {
           alert("ログアウトしました");
         });
     },
+    goToTop() {
+      this.$refs.redirectHome.$el.click();
+    },
   },
   mounted() {
-    const goToTop = () => {
-      this.$router.push({ path: "/" });
-    };
+    const goToTop = this.goToTop;
 
     firebase.initializeApp(firebaseConfig);
 

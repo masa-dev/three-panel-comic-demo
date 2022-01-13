@@ -3,6 +3,11 @@
     <Header></Header>
     <Main></Main>
     <Footer></Footer>
+    <router-link
+      ref="redirectLogin"
+      to="/login"
+      style="display: none"
+    ></router-link>
   </div>
 </template>
 
@@ -22,6 +27,11 @@ export default {
     Header: Header,
     Main: Main,
     Footer: Footer,
+  },
+  methods: {
+    goToLogin() {
+      this.$refs.redirectLogin.$el.click();
+    },
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -52,8 +62,7 @@ export default {
         this.$store.commit("updateUserName");
         this.$store.commit("updateUserId");
 
-        if (this.$router.currentRoute.name !== "Login")
-          this.$router.push({ path: "login" });
+        if (this.$router.currentRoute.name !== "Login") this.goToLogin();
       }
     });
   },
@@ -65,7 +74,7 @@ export default {
       if (to && to.name !== "Login") {
         firebase.auth().onAuthStateChanged((user) => {
           if (!user) {
-            this.$router.push({ path: "/login" });
+            this.goToLogin();
           }
         });
       }
