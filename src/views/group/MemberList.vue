@@ -2,6 +2,16 @@
   <div class="group-list">
     <section v-if="group.isAdmin">
       <h3>メンバーリスト</h3>
+      <div class="search-user-name">
+        <p>以下の入力欄でユーザーを検索できます。</p>
+        <p>
+          <input
+            type="text"
+            v-model="filterText"
+            placeholder="ユーザー名 または ID を入力"
+          />
+        </p>
+      </div>
       <div class="user-table-wrapper">
         <table class="group-member-list">
           <thead>
@@ -24,10 +34,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(member, index) in group.members" :key="index">
+            <tr v-for="(member, index) in resultFilter" :key="index">
               <td>{{ member.name }}</td>
               <td>{{ member.id }}</td>
               <td>{{ member.email }}</td>
+            </tr>
+            <tr v-if="resultFilter.length === 0">
+              <td>該当するユーザーがありません</td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -44,6 +59,7 @@ import maskEmail from "../../util/maskEmail";
 export default {
   data() {
     return {
+      filterText: "",
       group: {
         isAdmin: false,
         members: [],
@@ -53,6 +69,20 @@ export default {
         isAsc: false,
       },
     };
+  },
+  computed: {
+    resultFilter() {
+      return this.group.members.filter((item) => {
+        if (this.filterText) {
+          return (
+            item.name.indexOf(this.filterText) >= 0 ||
+            item.id.indexOf(this.filterText) >= 0
+          );
+        } else {
+          return true;
+        }
+      });
+    },
   },
   methods: {
     sortMemberBy(key) {
