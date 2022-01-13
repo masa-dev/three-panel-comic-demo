@@ -64,7 +64,7 @@ export default {
       logs: [],
       sortOption: {
         type: "startDate",
-        isDesc: false, // 降順かどうか
+        isDesc: true, // 降順かどうか
       },
       titles: [],
     };
