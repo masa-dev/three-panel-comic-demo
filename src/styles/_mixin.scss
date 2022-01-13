@@ -1,0 +1,32 @@
+@import "./variables";
+
+@mixin input() {
+  background-color: white;
+  font-size: 0.85rem;
+  margin: 0.5rem;
+  padding: {
+    top: 0.8em;
+    left: 1em;
+    bottom: 0.7em;
+  }
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 5px;
+  transition: 0.3s;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border-color: $inputColor;
+    box-shadow: 0 0 0 2px $inputShadowColor;
+  }
+}
+
+@mixin select() {
+  font-size: 0.85rem;
+  margin: 0.5rem;
+  padding: {
+    top: 0.8em;
+    left: 1em;
+    bottom: 0.7em;
+  }
+}
