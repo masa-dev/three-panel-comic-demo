@@ -187,7 +187,7 @@ $input-shadow-color: rgb(60, 161, 255, 0.3);
   width: 95%;
   max-height: 700px;
   margin: 10px auto;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .log-item {
     background-color: rgb(238, 226, 192);
