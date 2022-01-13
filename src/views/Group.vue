@@ -1,7 +1,7 @@
 <template>
   <div id="group">
     <h2>グループ設定</h2>
-    <nav class="group-nav">
+    <nav class="group-nav" v-if="isAdmin">
       <div class="group-nav-inner">
         <router-link to="/group">グループ情報</router-link>
         <router-link to="/group/members">メンバーリスト</router-link>
@@ -11,6 +11,16 @@
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    isAdmin() {
+      return this.$store.state.user.isAdmin;
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 nav.group-nav {
@@ -38,7 +48,7 @@ nav.group-nav {
       padding: 10px 0;
       margin-right: 20px;
       text-decoration: none;
-      
+
       &:hover {
         color: rgb(128, 128, 128);
       }
