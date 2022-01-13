@@ -144,6 +144,8 @@ export default {
 
         // ログを表示
         await this.fetchLogData(uid);
+        // ログをソートする
+        this.sortLog();
       }
 
       unsubscribe();
