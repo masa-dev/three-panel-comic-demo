@@ -75,8 +75,8 @@ export default {
       return this.group.members.filter((item) => {
         if (this.filterText) {
           return (
-            item.name.indexOf(this.filterText) >= 0 ||
-            item.id.indexOf(this.filterText) >= 0
+            item.name.toLowerCase().indexOf(this.filterText) >= 0 ||
+            item.id.toLowerCase().indexOf(this.filterText) >= 0
           );
         } else {
           return true;
