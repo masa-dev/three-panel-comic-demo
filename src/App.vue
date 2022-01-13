@@ -28,7 +28,7 @@ export default {
       if (user && user.isAnonymous === false) {
         const database = firebase.database();
         const adminRef = database.ref("admin-users");
-        const userRef = database.ref(`users${user.uid}username`);
+        const userRef = database.ref(`users/${user.uid}/username`);
 
         userRef.on("value", (snapshot) => {
           this.$store.commit("updateUserName", snapshot.val());
