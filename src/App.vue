@@ -27,11 +27,8 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (user && user.isAnonymous === false) {
         const database = firebase.database();
-        const userRef = database
-          .ref()
-          .child("users")
-          .child(user.uid)
-          .child("username");
+        const adminRef = database.ref("admin-users");
+        const userRef = database.ref(`users${user.uid}username`);
 
         userRef.on("value", (snapshot) => {
           this.$store.commit("updateUserName", snapshot.val());
@@ -40,6 +37,15 @@ export default {
         this.$store.commit("setAuth", true);
         this.$store.commit("updatePhotoURL", user.photoURL);
         this.$store.commit("updateUserId", user.uid);
+
+        // 管理者チェック
+        adminRef.get().then((snapshot) => {
+          const adminList = snapshot.val();
+
+          if (adminList[user.uid]) {
+            this.$store.commit("setAdmin", true);
+          }
+        });
       } else {
         this.$store.commit("setAuth", false);
         this.$store.commit("updatePhotoURL");

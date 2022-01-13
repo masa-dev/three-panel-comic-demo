@@ -10,12 +10,13 @@ firebase.initializeApp(firebaseConfig);
 export default new Vuex.Store({
   state: {
     auth: {
-      isAuth: null,
+      isAuth: false,
     },
     user: {
       userName: null,
       uid: null,
       photoURL: require("@/assets/no_user.png"),
+      isAdmin: false,
     },
   },
   mutations: {
@@ -23,12 +24,19 @@ export default new Vuex.Store({
      * @param {Boolean} isAuth 認証状態
      */
     setAuth(state, isAuth) {
+      if (typeof isAuth !== "boolean") {
+        console.log("setAuthの入力値が正しくありません");
+        return;
+      }
       state.auth.isAuth = isAuth;
     },
-    /**
-     *
-     * @param {{userName: String, photoURL: String}} user ユーザー情報
-     */
+    setAdmin(state, isAdmin) {
+      if (typeof isAdmin !== "boolean") {
+        console.log("setAdminの入力値が正しくありません");
+        return;
+      }
+      state.user.isAdmin = isAdmin;
+    },
     updatePhotoURL(state, url) {
       state.user.photoURL = url ? url : null;
     },
