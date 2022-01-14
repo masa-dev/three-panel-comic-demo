@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/three-panel-comic-demo/precache-manifest.96ab7310348cee69e5c862e464694ac8.js"
+  "/three-panel-comic-demo/precache-manifest.df4d6bb724017faced7ecdb8367486ea.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "three-panel-comic-demo"});
