@@ -67,6 +67,8 @@ export default {
     background-color: rgb(253, 229, 198);
     border: 1px solid rgb(218, 184, 140);
     border-radius: 10px;
+    margin-bottom: 20px;
+
     &:nth-child(2n-1) {
       margin-right: 2%;
     }
