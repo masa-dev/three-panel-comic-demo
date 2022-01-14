@@ -124,7 +124,6 @@ export default {
     },
     moveToLog(uid) {
       this.$store.commit("setSearchId", uid);
-      console.log(this.$store.state);
       this.$refs.redirectLog.$el.click();
     },
   },
