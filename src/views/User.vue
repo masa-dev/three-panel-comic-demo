@@ -9,6 +9,7 @@
         id="user-name-input"
         :value="userName"
         maxlength="10"
+        @keydown.enter="updateProfile"
       />
     </div>
     <div class="user-info-wrap">
