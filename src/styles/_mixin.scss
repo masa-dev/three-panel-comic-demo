@@ -1,6 +1,7 @@
 @import "./variables";
 
 @mixin input() {
+  font-family: "Meiryo", sans-serif;
   background-color: white;
   font-size: 0.85rem;
   margin: 0.5rem;
@@ -12,6 +13,7 @@
   border: 1px solid rgb(182, 182, 182);
   border-radius: 5px;
   transition: 0.3s;
+  transition-property: box-shadow, border;
 
   &:hover,
   &:focus {
@@ -39,6 +41,7 @@
   border: 1px solid $inputColor;
   border-radius: 5px;
   transition: 0.3s;
+  transition-property: color, background-color, box-shadow;
   cursor: pointer;
 
   &:hover,
