@@ -16,28 +16,34 @@
         <table class="group-member-list">
           <thead>
             <tr>
-              <th @click="sortMemberBy('name')" :class="addClass('name')">
+              <th
+                @click="sortMemberBy('name')"
+                :class="addClass('name')"
+                class="sortable"
+              >
                 ユーザー名
                 <b-icon-caret-down-fill></b-icon-caret-down-fill
                 ><b-icon-caret-up-fill></b-icon-caret-up-fill>
               </th>
-              <th @click="sortMemberBy('id')" :class="addClass('id')">
-                ユーザーID
-                <b-icon-caret-down-fill></b-icon-caret-down-fill>
-                <b-icon-caret-up-fill></b-icon-caret-up-fill>
-              </th>
-              <th @click="sortMemberBy('email')" :class="addClass('email')">
+              <th
+                @click="sortMemberBy('email')"
+                :class="addClass('email')"
+                class="sortable"
+              >
                 メール
                 <b-icon-caret-down-fill></b-icon-caret-down-fill
                 ><b-icon-caret-up-fill></b-icon-caret-up-fill>
               </th>
+              <th>ログ</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(member, index) in resultFilter" :key="index">
               <td>{{ member.name }}</td>
-              <td>{{ member.id }}</td>
               <td>{{ member.email }}</td>
+              <td class="move-to-log">
+                <button @click="moveToLog(member.id)">ログを確認する</button>
+              </td>
             </tr>
             <tr v-if="resultFilter.length === 0">
               <td>該当するユーザーがありません</td>
@@ -48,6 +54,11 @@
         </table>
       </div>
     </section>
+    <router-link
+      ref="redirectLog"
+      to="/log"
+      style="display: none"
+    ></router-link>
   </div>
 </template>
 
@@ -110,6 +121,11 @@ export default {
         asc: this.sort.key === key && this.sort.isAsc,
         desc: this.sort.key === key && !this.sort.isAsc,
       };
+    },
+    moveToLog(uid) {
+      this.$store.commit("setSearchId", uid);
+      console.log(this.$store.state);
+      this.$refs.redirectLog.$el.click();
     },
   },
   mounted() {
@@ -188,10 +204,10 @@ export default {
         font-size: 0.9em;
         text-align: left;
         user-select: none;
-        cursor: pointer;
         position: relative;
 
-        &:hover {
+        &.sortable:hover {
+          cursor: pointer;
           background-color: rgba(181, 216, 235, 0.65);
         }
 
@@ -202,12 +218,15 @@ export default {
           border-radius: 0 10px 0 0;
         }
 
-        svg.b-icon {
-          position: absolute;
-          right: 10px;
-          width: 13px;
-          height: 13px;
-          display: none;
+        svg {
+          &.bi-caret-down-fill,
+          &.bi-caret-up-fill {
+            position: absolute;
+            right: 10px;
+            width: 13px;
+            height: 13px;
+            display: none;
+          }
         }
 
         &.asc,
@@ -237,6 +256,19 @@ export default {
 
       &:first-child {
         border: none;
+      }
+    }
+
+    td.move-to-log {
+      width: 10em;
+      padding: {
+        top: 6px;
+        bottom: 6px;
+      }
+      button {
+        @include button();
+
+        font-size: 1rem;
       }
     }
   }

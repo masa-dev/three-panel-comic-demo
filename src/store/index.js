@@ -18,6 +18,9 @@ export default new Vuex.Store({
       photoURL: require("@/assets/no_user.png"),
       isAdmin: false,
     },
+    log: {
+      searchId: "",
+    },
   },
   mutations: {
     /**
@@ -45,6 +48,9 @@ export default new Vuex.Store({
     },
     updateUserId(state, id) {
       state.user.uid = id ? id : null;
+    },
+    setSearchId(state, uid) {
+      state.log.searchId = uid;
     },
   },
   actions: {},

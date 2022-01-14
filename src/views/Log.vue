@@ -1,10 +1,12 @@
 <template>
   <div id="log">
     <h2>ログ</h2>
+    <div class="log-user-info">
+      <p>
+        <strong>{{ userInfo.name }}</strong> さんのログ
+      </p>
+    </div>
     <div class="log-input">
-      <span>ログ検索</span>
-      <input type="text" v-model="searchId" placeholder="ログID" />
-      <button @click="fetchLogData(searchId)">検索</button><br />
       <label for="sort-option-select">ソートする項目 : </label>
       <select
         v-model="sortOption.type"
@@ -56,6 +58,9 @@
         <p>開始日時: {{ convertDate(log.startDate) }}</p>
         <p v-if="log.endDate">終了日時: {{ convertDate(log.endDate) }}</p>
       </div>
+      <div class="log-item" v-if="logs.length === 0">
+        <p>ログがありません</p>
+      </div>
     </div>
   </div>
 </template>
@@ -67,9 +72,11 @@ import "firebase/compat/database";
 export default {
   data() {
     return {
-      searchId: "",
       originalPath: "https://buturi.heteml.net/student/2021/toda/comics/",
       logs: [],
+      userInfo: {
+        name: "",
+      },
       sortOption: {
         type: "startDate",
         isDesc: true, // 降順かどうか
@@ -121,8 +128,21 @@ export default {
   async mounted() {
     let unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        let uid = user.uid;
+        let uid;
         let comicLength = 0;
+
+        // ログの指定があるかどうか
+        if (this.$store.state.log.searchId) {
+          uid = this.$store.state.log.searchId;
+          this.$store.commit("setSearchId", "");
+        } else {
+          uid = user.uid;
+        }
+
+        const userRef = firebase.database().ref(`users/${uid}`);
+        userRef.get().then((snapshot) => {
+          this.userInfo.name = snapshot.val().username;
+        });
 
         // 漫画数を取得
         await fetch(`${this.originalPath}countComic.php`)
@@ -161,6 +181,12 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/variables";
 @import "../styles/mixin";
+
+.log-user-info {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
 
 .log-input {
   width: 90%;
