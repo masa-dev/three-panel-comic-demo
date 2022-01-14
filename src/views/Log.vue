@@ -2,6 +2,9 @@
   <div id="log">
     <h2>ログ</h2>
     <div class="log-input">
+      <span>ログ検索</span>
+      <input type="text" v-model="searchId" placeholder="ログID" />
+      <button @click="fetchLogData(searchId)">検索</button><br />
       <label for="sort-option-select">ソートする項目 : </label>
       <select
         v-model="sortOption.type"
@@ -64,6 +67,7 @@ import "firebase/compat/database";
 export default {
   data() {
     return {
+      searchId: "",
       originalPath: "https://buturi.heteml.net/student/2021/toda/comics/",
       logs: [],
       sortOption: {
