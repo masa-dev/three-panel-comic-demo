@@ -84,6 +84,8 @@ table.group-info-table {
   tr > td {
     font-size: 1.1rem;
     padding: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 }
 </style>
