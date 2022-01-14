@@ -235,32 +235,10 @@ export default {
   }
 
   button {
-    color: white;
-    background-color: $inputColor;
-    font-weight: bold;
-    font-size: 0.9rem;
-    padding: 0.4rem 0.75rem;
-    border: 1px solid $inputColor;
-    border-radius: 5px;
-    transition: 0.3s;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      outline: none;
-      border-color: $inputColor;
-      box-shadow: 0 0 0 2px $inputShadowColor;
-    }
+    @include button();
 
     &.logout {
-      color: $inputColor;
-      background-color: white;
-
-      &:hover,
-      &:focus {
-        color: white;
-        background-color: $inputColor;
-      }
+      @include outlineButton();
     }
   }
 
