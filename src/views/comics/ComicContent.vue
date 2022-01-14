@@ -4,8 +4,8 @@
 
     <div class="flex-container">
       <div class="text-wrap flex-left-item">
-        <h3>状況</h3>
-        <p>状況のスライドです。</p>
+        <h3>出来事</h3>
+        <p>起こった出来事のスライドです。</p>
       </div>
       <div class="page-wrapper flex-right-item">
         <div class="comic-page">
