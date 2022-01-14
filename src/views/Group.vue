@@ -41,6 +41,15 @@ nav.group-nav {
   .group-nav-inner {
     display: flex;
     z-index: 999;
+    overflow-x: auto;
+
+    // スクロールバーを消す
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     a {
       color: rgb(66, 66, 66);
@@ -48,6 +57,7 @@ nav.group-nav {
       padding: 10px 0;
       margin-right: 20px;
       text-decoration: none;
+      white-space: nowrap;
 
       &:hover {
         color: rgb(128, 128, 128);
