@@ -94,20 +94,24 @@ export default {
 
 .group-input-area {
   .group-input-wrapper {
-    label {
-      margin-left: 0.5rem;
-    }
+    margin-left: 0.5rem;
 
     input {
       @include input();
       width: 400px;
-      margin-bottom: 1.2rem;
+      margin: {
+        left: 0;
+        bottom: 1.2rem;
+      }
     }
 
     textarea {
       @include input();
       width: 400px;
-      margin-bottom: 1.2rem;
+      margin: {
+        left: 0;
+        bottom: 1.2rem;
+      }
     }
 
     button {
@@ -117,15 +121,16 @@ export default {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: $responsiveMainWidth) {
   .group-input-area {
-    input {
-      margin: inherit auto;
-      width: 90%;
-    }
+    .group-input-wrapper {
+      input {
+        width: 90%;
+      }
 
-    textarea {
-      width: 90%;
+      textarea {
+        width: 90%;
+      }
     }
   }
 }
