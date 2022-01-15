@@ -259,11 +259,13 @@ export default {
     }
 
     td.move-to-log {
-      width: 10em;
+      width: 1px;
+      white-space: nowrap;
       padding: {
         top: 6px;
         bottom: 6px;
       }
+      padding: 6px 10px;
       button {
         @include button();
 
