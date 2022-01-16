@@ -54,11 +54,6 @@
         </table>
       </div>
     </section>
-    <router-link
-      ref="redirectLog"
-      to="/log"
-      style="display: none"
-    ></router-link>
   </div>
 </template>
 
@@ -124,7 +119,7 @@ export default {
     },
     moveToLog(uid) {
       this.$store.commit("setSearchId", uid);
-      this.$refs.redirectLog.$el.click();
+      this.$router.push({ path: "/log?has_uid=true" });
     },
   },
   mounted() {

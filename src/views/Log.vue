@@ -68,6 +68,7 @@
 <script>
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import parseToBoolean from "@/util/parseToBoolean";
 
 export default {
   data() {
@@ -130,6 +131,18 @@ export default {
       if (user) {
         let uid;
         let comicLength = 0;
+
+        if (this.$route.query.has_uid) {
+          let has_uid = parseToBoolean(this.$route.query.has_uid);
+
+          if (has_uid && this.$store.state.log.searchId) {
+            uid = this.$store.state.log.searchId;
+          } else {
+            uid = user.uid;
+          }
+        } else {
+          uid = user.uid;
+        }
 
         // ログの指定があるかどうか
         if (this.$store.state.log.searchId) {
