@@ -6,6 +6,36 @@
         <strong>{{ userInfo.name }}</strong> さんのログ
       </p>
     </div>
+    <div class="log-process">
+      <p>進行度表</p>
+      <table class="log-process-table">
+        <thead>
+          <tr>
+            <th>漫画ID</th>
+            <th>進捗</th>
+            <th>閲覧回数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(process, index) in processList"
+            :key="index"
+            v-show="process"
+            :class="index === 1 ? 'first-child' : ''"
+          >
+            <td>
+              <router-link :to="`/comics/${process.comicId}`">{{
+                process.comicTitle
+              }}</router-link>
+            </td>
+            <td :class="process.executed ? 'log-done' : 'log-yet'">
+              {{ process.executedText }}
+            </td>
+            <td>{{ process.viewCount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="log-input">
       <label for="sort-option-select">ソートする項目 : </label>
       <select
@@ -83,6 +113,7 @@ export default {
         isDesc: true, // 降順かどうか
       },
       titles: [],
+      processList: [],
     };
   },
   methods: {
@@ -125,6 +156,32 @@ export default {
         return isDesc ? b[type] - a[type] : a[type] - b[type];
       });
     },
+    setProcess() {
+      const comicLength = this.titles.length;
+
+      this.processList.push(false);
+
+      for (let i = 1; i <= comicLength - 1; i++) {
+        const comicId = i.toString();
+        const viewCount = this.countComicViews(comicId);
+        const executed = viewCount > 0;
+
+        this.processList.push({
+          comicId: comicId,
+          comicTitle: this.titles[i],
+          executed: executed,
+          executedText: executed ? "終了済み" : "未完了",
+          viewCount: viewCount,
+        });
+      }
+    },
+    countComicViews(comicId = "") {
+      const filteredArray = this.logs.filter((item) => {
+        return item.done === true && item.comicId === comicId;
+      });
+
+      return filteredArray.length;
+    },
   },
   async mounted() {
     let unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
@@ -147,7 +204,6 @@ export default {
         // ログの指定があるかどうか
         if (this.$store.state.log.searchId) {
           uid = this.$store.state.log.searchId;
-          this.$store.commit("setSearchId", "");
         } else {
           uid = user.uid;
         }
@@ -183,6 +239,8 @@ export default {
         await this.fetchLogData(uid);
         // ログをソートする
         this.sortLog();
+        // 進行度を表示する
+        this.setProcess();
       }
 
       unsubscribe();
@@ -195,10 +253,76 @@ export default {
 @import "../styles/variables";
 @import "../styles/mixin";
 
+$doneColor: rgb(6, 148, 230);
+$yetColor: rgb(235, 95, 31);
+
 .log-user-info {
   width: 90%;
   margin: 0 auto;
   font-size: 1.1rem;
+}
+
+.log-process {
+  margin: 15px 20px;
+
+  > p {
+    margin-bottom: 5px;
+  }
+
+  table.log-process-table {
+    background-color: rgb(250, 249, 249);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    box-shadow: 0.5px 0.5px gray, -0.5px 0.5px gray, 0.5px -0.5px gray,
+      -0.5px -0.5px gray;
+
+    thead {
+      tr > th {
+        background-color: rgba(207, 234, 247, 0.65);
+        font-size: 0.9em;
+        text-align: left;
+        user-select: none;
+        position: relative;
+
+        &:first-child {
+          border-radius: 10px 0 0 0;
+        }
+        &:last-child {
+          border-radius: 0 10px 0 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      padding: 0.7rem 1rem;
+      border-left: 1px solid rgb(219, 219, 219);
+
+      &:first-child {
+        border-left: none;
+      }
+    }
+
+    th {
+      border-bottom: 1px solid gray;
+    }
+
+    td {
+      border-top: 1px solid rgb(219, 219, 219);
+
+      &.log-done {
+        color: $doneColor;
+      }
+      &.log-yet {
+        color: $yetColor;
+      }
+    }
+
+    tr.first-child > td {
+      border-top: none;
+    }
+  }
 }
 
 .log-input {
@@ -247,13 +371,28 @@ export default {
 
       span.log- {
         &done {
-          color: rgb(6, 148, 230);
+          color: $doneColor;
         }
 
         &yet {
-          color: rgb(235, 95, 31);
+          color: $yetColor;
         }
       }
+    }
+  }
+}
+
+@media (max-width: $responsiveMainWidth) {
+  .log-process {
+    margin: 15px 0;
+
+    > p {
+      margin-left: 10px;
+    }
+
+    table.log-process-table {
+      width: 95%;
+      margin: 0 auto;
     }
   }
 }
