@@ -8,10 +8,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/css/chunk-281e38c2.950acdd6.css"
   },
   {
-    "revision": "d699681472ad575c78e2",
-    "url": "/three-panel-comic-demo/css/chunk-393da36c.24029155.css"
-  },
-  {
     "revision": "439ba3809f941091a5d8",
     "url": "/three-panel-comic-demo/css/chunk-517b746e.7671a384.css"
   },
@@ -36,11 +32,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/css/chunk-d5bc9dc6.6c70c094.css"
   },
   {
+    "revision": "3c728d89b9b79f81630c",
+    "url": "/three-panel-comic-demo/css/chunk-ff70953a.3aa90976.css"
+  },
+  {
     "revision": "435b80245b051cca3626",
     "url": "/three-panel-comic-demo/css/chunk-vendors.ed2eec31.css"
   },
   {
-    "revision": "6de7e0a97ff8e806835a",
+    "revision": "db6a51e1117ec6a30756",
     "url": "/three-panel-comic-demo/css/index.d0025d9d.css"
   },
   {
@@ -52,7 +52,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/img/no_user.0bbdbbd1.png"
   },
   {
-    "revision": "7e934a7fdc1c68647f9b18d07eb181f2",
+    "revision": "26ab0309a3062d4303605b48db4b461c",
     "url": "/three-panel-comic-demo/index.html"
   },
   {
@@ -74,10 +74,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b99236c37d797b408083",
     "url": "/three-panel-comic-demo/js/chunk-2d0bce45.64ba4a12.js"
-  },
-  {
-    "revision": "d699681472ad575c78e2",
-    "url": "/three-panel-comic-demo/js/chunk-393da36c.0441d07f.js"
   },
   {
     "revision": "439ba3809f941091a5d8",
@@ -104,12 +100,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/js/chunk-d5bc9dc6.ec19c5b1.js"
   },
   {
+    "revision": "3c728d89b9b79f81630c",
+    "url": "/three-panel-comic-demo/js/chunk-ff70953a.be56129f.js"
+  },
+  {
     "revision": "435b80245b051cca3626",
     "url": "/three-panel-comic-demo/js/chunk-vendors.bde58f49.js"
   },
   {
-    "revision": "6de7e0a97ff8e806835a",
-    "url": "/three-panel-comic-demo/js/index.74b4312a.js"
+    "revision": "db6a51e1117ec6a30756",
+    "url": "/three-panel-comic-demo/js/index.03da6644.js"
   },
   {
     "revision": "54f1b4e35278441de56e5cf2da519463",
