@@ -1,5 +1,10 @@
 import ngWords from "./ngWords.json";
 
+/**
+ * 文字列内にNGワードが含まれているかチェックする
+ * @param {String} str チェックする文字列
+ * @returns {Boolean} true または false
+ */
 function checkNgWords(str = "") {
   let flag = false;
 
