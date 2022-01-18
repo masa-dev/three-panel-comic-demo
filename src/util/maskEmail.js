@@ -23,7 +23,7 @@ function maskEmail(email) {
       return masked;
     });
   } else {
-    return `${email}is not a string`;
+    return `${email} is not a string`;
   }
 }
 
