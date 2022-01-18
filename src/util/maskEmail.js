@@ -18,7 +18,8 @@ function maskEmail(email) {
       endString = match.slice(length - displayLength - 1, length);
 
       // 表示しない部分は * でマスキングする
-      masked = startString + "*".repeat(length - displayLength * 2) + endString;
+      masked =
+        startString + "*".repeat(length - displayLength * 2 - 1) + endString;
       return masked;
     });
   } else {
