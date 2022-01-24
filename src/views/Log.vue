@@ -13,7 +13,7 @@
           <tr>
             <th>タイトル</th>
             <th>進捗</th>
-            <th>閲覧回数</th>
+            <th>閲覧数</th>
           </tr>
         </thead>
         <tbody>

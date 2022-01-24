@@ -8,7 +8,7 @@
           <input
             type="text"
             v-model="filterText"
-            placeholder="ユーザー名 または ID を入力"
+            placeholder="ユーザー名を入力"
           />
         </p>
       </div>
