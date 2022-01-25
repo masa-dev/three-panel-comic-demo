@@ -8,7 +8,7 @@
           <input
             type="text"
             v-model="filterText"
-            placeholder="ユーザー名 または ID を入力"
+            placeholder="ユーザー名を入力"
           />
         </p>
       </div>
@@ -183,12 +183,16 @@ export default {
 
 .user-table-wrapper {
   overflow-x: auto;
+
   table.group-member-list {
-    width: 100%;
+    width: 98%;
+    margin: 1px;
     min-width: 600px;
     background-color: rgb(250, 249, 249);
     border-collapse: collapse;
     border-radius: 10px;
+    box-shadow: 0.5px 0.5px gray, -0.5px 0.5px gray, 0.5px -0.5px gray,
+      -0.5px -0.5px gray;
 
     thead {
       border-bottom: 1px solid gray;

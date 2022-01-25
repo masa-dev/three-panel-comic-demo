@@ -11,9 +11,9 @@
       <table class="log-process-table">
         <thead>
           <tr>
-            <th>漫画ID</th>
+            <th>タイトル</th>
             <th>進捗</th>
-            <th>閲覧回数</th>
+            <th>閲覧数</th>
           </tr>
         </thead>
         <tbody>
