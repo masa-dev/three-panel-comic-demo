@@ -47,8 +47,7 @@ export default {
       signInOptions: [
         {
           provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          // アカウント作成時にログインメールを送信する
-          // 事前に承認済みドメインに指定する必要があるかも
+          // ログイン時に確認メールを送信する
           signInMethod:
             firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
           forceSameDevice: false,
