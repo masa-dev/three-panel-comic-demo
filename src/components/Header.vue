@@ -37,7 +37,7 @@
               <router-link to="/group">
                 <span class="header-shortcut-icon"
                   ><b-icon-people-fill></b-icon-people-fill></span
-                >グループ設定</router-link
+                >グループ情報</router-link
               >
               <router-link to="/log">
                 <span class="header-shortcut-icon"
