@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h2>泣きっ面に蜂</h2>
+    <h2>{{ title }}</h2>
 
     <div class="flex-container">
       <div class="text-wrap flex-left-item">
@@ -82,6 +82,7 @@ export default {
     return {
       originalPath: "https://buturi.heteml.net/student/2021/toda/comics/",
       pageLength: 0,
+      title: "",
       imageUrl: {
         first: "",
         second: [],
@@ -162,6 +163,18 @@ export default {
     const comicId = this.$route.params.id;
     this.selected.index = 0;
     this.imageUrl.first = `${this.originalPath}/${comicId}/1.png`;
+
+    // タイトルを取得する
+    await fetch(`${this.originalPath}getData.php?comic=${comicId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === false) {
+          //
+        } else {
+          this.title = data.title;
+        }
+      })
+      .catch((e) => console.error(e));
 
     // ページの長さを取得する
     await fetch(`${this.originalPath}countPage.php?comic=${comicId}`)
