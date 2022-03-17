@@ -29,7 +29,6 @@
           circular: true,
           deceleration: 0.05,
           duration: 350,
-          bound: false,
           renderOnlyVisible: true,
         }"
         :plugins="plugins"
