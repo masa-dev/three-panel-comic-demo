@@ -4,12 +4,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/css/chunk-0106ae9a.2b07c0f2.css"
   },
   {
-    "revision": "5bd073e5dc45bccf8d82",
-    "url": "/three-panel-comic-demo/css/chunk-281e38c2.950acdd6.css"
+    "revision": "b869aaa6fdaa6893a3ff",
+    "url": "/three-panel-comic-demo/css/chunk-121ed42a.0e45fef7.css"
   },
   {
-    "revision": "b201449cde7991cb844e",
-    "url": "/three-panel-comic-demo/css/chunk-36478911.9f42db82.css"
+    "revision": "5bd073e5dc45bccf8d82",
+    "url": "/three-panel-comic-demo/css/chunk-281e38c2.950acdd6.css"
   },
   {
     "revision": "09eb32c7b2c890d2735a",
@@ -40,7 +40,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/css/chunk-vendors.ed2eec31.css"
   },
   {
-    "revision": "42ea20682c0e7e76dda8",
+    "revision": "d4ba1d6f7e88942c5ab8",
     "url": "/three-panel-comic-demo/css/index.d0025d9d.css"
   },
   {
@@ -52,12 +52,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/img/no_user.0bbdbbd1.png"
   },
   {
-    "revision": "a60b73a3949f7d5a23808140ad630654",
+    "revision": "e2d77302a33cac13997908601d5c34cf",
     "url": "/three-panel-comic-demo/index.html"
   },
   {
     "revision": "367d63d359df99c88f6e",
     "url": "/three-panel-comic-demo/js/chunk-0106ae9a.9769d8aa.js"
+  },
+  {
+    "revision": "b869aaa6fdaa6893a3ff",
+    "url": "/three-panel-comic-demo/js/chunk-121ed42a.c451b153.js"
   },
   {
     "revision": "5bd073e5dc45bccf8d82",
@@ -74,10 +78,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b99236c37d797b408083",
     "url": "/three-panel-comic-demo/js/chunk-2d0bce45.64ba4a12.js"
-  },
-  {
-    "revision": "b201449cde7991cb844e",
-    "url": "/three-panel-comic-demo/js/chunk-36478911.c3111fa5.js"
   },
   {
     "revision": "09eb32c7b2c890d2735a",
@@ -108,8 +108,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/three-panel-comic-demo/js/chunk-vendors.bde58f49.js"
   },
   {
-    "revision": "42ea20682c0e7e76dda8",
-    "url": "/three-panel-comic-demo/js/index.0bf86400.js"
+    "revision": "d4ba1d6f7e88942c5ab8",
+    "url": "/three-panel-comic-demo/js/index.490252c6.js"
   },
   {
     "revision": "54f1b4e35278441de56e5cf2da519463",
